@@ -123,7 +123,7 @@ h5 {
     flex-direction: column;
 }
 
-/*  */
+/* Adds spacing in between items */
 .gap-2 {
     gap: 0.5rem;
 }

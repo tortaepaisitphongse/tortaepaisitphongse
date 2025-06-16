@@ -3,8 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "compress": "python3 compress_images.py",
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "python3 compress_images.py && astro build",
+    "build:only": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -1,0 +1,114 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Components
+import Block from "../components/Block.astro";
+---
+
+<Layout>
+    <main class="resume-page">
+        <div class="container">
+            <div class="resume-header">
+                <h1>Tor Taepaisitphongse</h1>
+                <p class="subtitle">Technology Consultant & Data Scientist</p>
+                <div class="actions">
+                    <a
+                        href="Chirapon_(Tor)_Taepaisitphongse_Resume.pdf"
+                        download
+                        ><Block class="block-primary">Download PDF</Block></a
+                    >
+                    <a
+                        href="Chirapon_(Tor)_Taepaisitphongse_Resume.pdf"
+                        target="_blank"
+                        style="text-decoration: none;"
+                        ><Block>Open in New Tab</Block></a
+                    >
+                </div>
+            </div>
+
+            <!-- PDF Viewer -->
+            <div class="pdf-container">
+                <iframe
+                    src="Chirapon_(Tor)_Taepaisitphongse_Resume.pdf"
+                    title="Tor Taepaisitphongse Resume"
+                    class="pdf-viewer"></iframe>
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .resume-page {
+        min-height: 100vh;
+        background: var(--gray-900);
+        padding: 2rem 0;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .resume-header {
+        background: var(--gray-999);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .resume-header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--black);
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--gray-600);
+        margin-bottom: 1.5rem;
+    }
+
+    .actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .pdf-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        min-height: 80vh;
+    }
+
+    .pdf-viewer {
+        width: 100%;
+        height: 130vh;
+        border: none;
+        display: block;
+    }
+
+    @media (max-width: 768px) {
+        .resume-header {
+            padding: 1.5rem;
+        }
+
+        .resume-header h1 {
+            font-size: 2rem;
+        }
+
+        .actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pdf-viewer {
+            height: 70vh;
+        }
+    }
+</style>

@@ -1,8 +1,17 @@
-<div class="block">
+---
+export interface Props {
+    class?: string;
+}
+
+const { class: className = "block" } = Astro.props;
+---
+
+<div class={className}>
     <slot />
 </div>
 
 <style>
+    .block-primary,
     .block {
         display: flex;
         padding: 0.5rem 1rem;
@@ -12,5 +21,10 @@
         font-size: var(--text-md);
         line-height: 1.35;
         white-space: nowrap;
+    }
+
+    .block-primary {
+        background: var(--blue);
+        color: var(--white);
     }
 </style>

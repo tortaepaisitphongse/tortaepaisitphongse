@@ -5,15 +5,21 @@ export interface Props {
     icon: keyof typeof iconPaths;
     size?: string;
     color?: string;
+    viewBox?: string;
 }
 
-const { icon, size = "20", color = "currentColor" } = Astro.props;
+const {
+    icon,
+    size = "20",
+    color = "currentColor",
+    viewBox = "0 0 256 256",
+} = Astro.props;
 ---
 
 <svg
     width={size}
     height={size}
-    viewBox="0 0 256 256"
+    viewBox={viewBox}
     fill="none"
     stroke={color}
     xmlns="http://www.w3.org/2000/svg"

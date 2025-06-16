@@ -1,0 +1,22 @@
+---
+import { iconPaths } from "./IconPaths.ts";
+
+export interface Props {
+    icon: keyof typeof iconPaths;
+    size?: string;
+    color?: string;
+}
+
+const { icon, size = "20", color = "currentColor" } = Astro.props;
+---
+
+<svg
+    width={size}
+    height={size}
+    viewBox="0 0 256 256"
+    fill="none"
+    stroke={color}
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <Fragment set:html={iconPaths[icon]} />
+</svg>

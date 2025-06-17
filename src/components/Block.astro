@@ -11,7 +11,8 @@ const { class: className = "block" } = Astro.props;
 </div>
 
 <style>
-    .block-primary,
+    .block-blue,
+    .block-white,
     .block {
         display: flex;
         padding: 0.5rem 1rem;
@@ -23,8 +24,13 @@ const { class: className = "block" } = Astro.props;
         white-space: nowrap;
     }
 
-    .block-primary {
+    .block-blue {
         background: var(--blue);
         color: var(--white);
+    }
+
+    .block-white {
+        background: white;
+        color: var(--black);
     }
 </style>

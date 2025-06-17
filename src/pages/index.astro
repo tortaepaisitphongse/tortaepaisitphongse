@@ -12,7 +12,7 @@ import heroimg from "../assets/images/TorTaepaisitphongse.jpeg";
 ---
 
 <Layout>
-    <div class="wrapper stack gap-8 lg:gap-20">
+    <div class="wrapper stack gap-8 lg:gap-20" id="landing">
         <header class="hero">
             <Hero
                 title="Hey! I'm Tor"
@@ -67,11 +67,18 @@ import heroimg from "../assets/images/TorTaepaisitphongse.jpeg";
 </Layout>
 
 <style>
+    #landing {
+        height: calc(100vh - 80px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
     .hero {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 2rem;
+        margin: 2rem;
     }
 
     /* .roles {
@@ -97,7 +104,8 @@ import heroimg from "../assets/images/TorTaepaisitphongse.jpeg";
         .hero {
             display: grid;
             grid-template-columns: 6fr 4fr;
-            padding-inline: 2.5rem;
+            align-items: center;
+            padding-inline: 4rem;
             gap: 3.75rem;
         }
 
@@ -117,7 +125,6 @@ import heroimg from "../assets/images/TorTaepaisitphongse.jpeg";
             aspect-ratio: 3 / 4;
             border-radius: 4.5rem;
             object-fit: cover;
-            margin-top: 4rem;
         }
     }
 </style>

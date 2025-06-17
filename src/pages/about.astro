@@ -38,28 +38,55 @@ const boardStickers = Object.values(boardStickerModules).map(
                 <Image src={corkboard} alt="" class="background-image" />
                 <!-- Photos -->
                 <div class="photo photo1" data-photo="0">
-                    <Image src={boardImages[0]} alt="Photo 1" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[0]}
+                        alt="Photo 1"
+                        class="photo-img"
+                    />
                 </div>
                 <div class="photo photo2" data-photo="1">
-                    <Image src={boardImages[1]} alt="Photo 2" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[1]}
+                        alt="Photo 2"
+                        class="photo-img"
+                    />
                 </div>
                 <div class="photo photo3" data-photo="2">
-                    <Image src={boardImages[2]} alt="Photo 3" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[2]}
+                        alt="Photo 3"
+                        class="photo-img"
+                    />
                 </div>
                 <div class="photo photo4" data-photo="3">
-                    <Image src={boardImages[3]} alt="Photo 4" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[3]}
+                        alt="Photo 4"
+                        class="photo-img"
+                    />
                 </div>
                 <div class="photo photo5" data-photo="4">
-                    <Image src={boardImages[4]} alt="Photo 5" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[4]}
+                        alt="Photo 5"
+                        class="photo-img"
+                    />
                 </div>
                 <div class="photo photo6" data-photo="5">
-                    <Image src={boardImages[5]} alt="Photo 6" />
+                    <div class="skeleton"></div>
+                    <Image
+                        src={boardImages[5]}
+                        alt="Photo 6"
+                        class="photo-img"
+                    />
                 </div>
 
                 <!-- Stickers -->
-                <!-- <div class="sticker sticker1">
-                    <Image src={boardStickers[0]} alt="Sticker1" />
-                </div> -->
                 <div class="sticker sticker2">
                     <Image src={boardStickers[1]} alt="Sticker2" />
                 </div>
@@ -101,8 +128,6 @@ const boardStickers = Object.values(boardStickerModules).map(
     .corkboard {
         position: relative;
         width: 100%;
-        /* max-width: 1600px; */
-        /* height: 600px; */
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
@@ -122,17 +147,59 @@ const boardStickers = Object.values(boardStickerModules).map(
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         cursor: pointer;
         transition: transform 0.3s ease;
+        overflow: hidden;
     }
 
     .photo:hover {
         transform: scale(1.05) !important;
     }
 
-    .photo img {
+    /* Skeleton loading styles */
+    .skeleton {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            #f0f0f0 25%,
+            #e0e0e0 50%,
+            #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite;
+        z-index: 1;
+        border-radius: 2px;
+    }
+
+    @keyframes shimmer {
+        0% {
+            background-position: -200% 0;
+        }
+        100% {
+            background-position: 200% 0;
+        }
+    }
+
+    .photo-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 2px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        position: relative;
+        z-index: 2;
+    }
+
+    .photo-img.loaded {
+        opacity: 1;
+    }
+
+    .photo.image-loaded .skeleton {
+        opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
     .photo::before {
@@ -516,10 +583,11 @@ const boardStickers = Object.values(boardStickerModules).map(
         .sticker5 {
             visibility: hidden;
         }
+    }
 
     @media (max-width: 500px) {
         .corkboard {
-        height: 400px;
+            height: 400px;
         }
         .photo {
             width: 150px !important;
@@ -566,10 +634,34 @@ const boardStickers = Object.values(boardStickerModules).map(
         const modalDescription = document.getElementById("modalDescription");
         const closeBtn = document.getElementById("closeModal");
 
+        // Handle skeleton loading for photos
+        const photoImages = document.querySelectorAll(".photo-img");
+        photoImages.forEach((img) => {
+            const container = img.closest(".photo");
+
+            if (img.complete && img.naturalHeight !== 0) {
+                // Image already loaded
+                img.classList.add("loaded");
+                container.classList.add("image-loaded");
+            } else {
+                // Image still loading
+                img.addEventListener("load", () => {
+                    img.classList.add("loaded");
+                    container.classList.add("image-loaded");
+                });
+
+                img.addEventListener("error", () => {
+                    container.classList.add("image-loaded");
+                    console.log("Image failed to load");
+                });
+            }
+        });
+
+        // Modal functionality
         photos.forEach((photo) => {
             photo.addEventListener("click", function () {
                 const photoIndex = parseInt(this.dataset.photo);
-                const img = this.querySelector("img");
+                const img = this.querySelector(".photo-img");
 
                 if (img && boardImages[photoIndex]) {
                     modalImage.src = img.src;

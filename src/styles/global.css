@@ -54,10 +54,7 @@ body {
     font-family: var(--font-body);
     /* -webkit-font-smoothing: antialiased; */
     line-height: 1.5;
-}
-
-header {
-    /* background-color: var(--blue); */
+    padding-top: 80px;
 }
 
 /* Review what this does!! Reset browser spacing apparently */
@@ -75,6 +72,7 @@ img {
 
 a {
     color: var(--link-color);
+    text-decoration: none;
 }
 
 h1,

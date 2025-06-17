@@ -15,13 +15,13 @@ import Block from "../components/Block.astro";
                     <a
                         href="/resume/Chirapon_(Tor)_Taepaisitphongse_Resume.pdf"
                         download
-                        ><Block class="block-primary">Download PDF</Block></a
+                        ><Block class="block-blue">Download PDF</Block></a
                     >
                     <a
                         href="Chirapon_(Tor)_Taepaisitphongse_Resume.pdf"
                         target="_blank"
                         style="text-decoration: none;"
-                        ><Block>Open in New Tab</Block></a
+                        ><Block class="block-white">Open in New Tab</Block></a
                     >
                 </div>
             </div>
@@ -40,7 +40,7 @@ import Block from "../components/Block.astro";
 <style>
     .resume-page {
         min-height: 100vh;
-        background: var(--gray-900);
+        /* background: var(--gray-900); */
         padding: 2rem 0;
     }
 
@@ -51,7 +51,7 @@ import Block from "../components/Block.astro";
     }
 
     .resume-header {
-        background: var(--gray-999);
+        background: var(--black);
         padding: 2rem;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -62,12 +62,12 @@ import Block from "../components/Block.astro";
     .resume-header h1 {
         font-size: 2.5rem;
         margin-bottom: 0.5rem;
-        color: var(--black);
+        color: white;
     }
 
     .subtitle {
         font-size: 1.2rem;
-        color: var(--gray-600);
+        color: var(--gray-900);
         margin-bottom: 1.5rem;
     }
 

@@ -509,32 +509,52 @@ const boardStickers = Object.values(boardStickerModules).map(
             right: 0px;
         }
 
-        .sticker1 {
-            top: 60px;
-            right: 300px;
-        }
-
-        .sticker2 {
-            bottom: 350px;
-            left: 300px;
-        }
-
-        .sticker3 {
-            top: 350px;
-            right: 350px;
+        .sticker1,
+        .sticker2,
+        .sticker3,
+        .sticker4,
+        .sticker5 {
             visibility: hidden;
         }
 
-        .sticker4 {
-            bottom: 40px;
-            left: 200px;
+    @media (max-width: 400px) {
+        .corkboard {
+        height: 400px;
+        }
+        .photo {
+            width: 150px !important;
+            height: 100px !important;
         }
 
-        .sticker5 {
-            top: 190px;
-            left: 210px;
-            width: 160px !important;
-            height: 80px !important;
+        .photo1 {
+            top: 30px;
+            left: -15px;
+        }
+
+        .photo2 {
+            top: 50px;
+            right: -15px;
+        }
+
+        .photo3 {
+            top: 150px;
+            left: -15px;
+        }
+
+        .photo4 {
+            top: 170px;
+            right: -15px;
+        }
+
+        .photo5 {
+            bottom: 20px;
+            left: -15px;
+        }
+
+        .photo6 {
+            bottom: 20px;
+            right: -15px;
+        }
     }
 </style>
 

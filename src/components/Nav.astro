@@ -118,7 +118,6 @@ const isCurrentPage = (href: string) => {
 
 <style>
     .navigation {
-        background: #fff;
         border-bottom: 1px solid #e5e5e5;
         position: sticky;
         top: 0;
@@ -130,7 +129,7 @@ const isCurrentPage = (href: string) => {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        height: 64px;
+        height: 80px;
     }
 
     .site-title {
@@ -218,6 +217,19 @@ const isCurrentPage = (href: string) => {
         background: var(--link-color);
     }
 
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        height: 100%;
+    }
+
+    .social-link {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
     /* Mobile styles */
     @media (max-width: 768px) {
         .nav-menu {
@@ -283,6 +295,18 @@ const isCurrentPage = (href: string) => {
 
         .social-link {
             padding: 0 1rem;
+        }
+
+        .social-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
     }
 </style>

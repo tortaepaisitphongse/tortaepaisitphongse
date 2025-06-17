@@ -1,0 +1,580 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import corkboard from "../assets/images/corkboard.png";
+
+// Load pinboard images
+const boardImageModules = import.meta.glob(
+    "../assets/images/pinboard/*.{png,jpg,jpeg}",
+    { eager: true }
+);
+const boardImages = Object.values(boardImageModules).map(
+    (module: any) => module.default
+);
+
+const photoDescriptions = [
+    "Caught these skaters during a summer walk through Boston. Sometimes fun shots happen when you're just wandering with your camera :)",
+    "Me and my friends. Always remember to make time for those who make life fun.",
+    "Before a piano concerto at the Kennedy Center. Classical music, especially piano, has always been close to my heart. However, you can find me listening to jazz, house, pop, rap, and more.",
+    "Photo booth chaos with my sisters. As a triplet, they've always been there for me, never letting life get boring.",
+    "Dinner with mom and my brother. I LOVE exploring new restaraunts and cooking recipes at home.",
+    "A torii gate stretching toward the ocean in Fukuoka, captured on 35mm film. Recently fell in love with film photography and the magic of shooting analog.",
+];
+
+// Load pinboard stickers
+const boardStickerModules = import.meta.glob(
+    "../assets/images/stickers/*.{png,jpg,jpeg}",
+    { eager: true }
+);
+const boardStickers = Object.values(boardStickerModules).map(
+    (module: any) => module.default
+);
+---
+
+<Layout>
+    <div class="wrapper">
+        <div class="pinboard-container">
+            <div class="corkboard">
+                <Image src={corkboard} alt="" class="background-image" />
+                <!-- Photos -->
+                <div class="photo photo1" data-photo="0">
+                    <Image src={boardImages[0]} alt="Photo 1" />
+                </div>
+                <div class="photo photo2" data-photo="1">
+                    <Image src={boardImages[1]} alt="Photo 2" />
+                </div>
+                <div class="photo photo3" data-photo="2">
+                    <Image src={boardImages[2]} alt="Photo 3" />
+                </div>
+                <div class="photo photo4" data-photo="3">
+                    <Image src={boardImages[3]} alt="Photo 4" />
+                </div>
+                <div class="photo photo5" data-photo="4">
+                    <Image src={boardImages[4]} alt="Photo 5" />
+                </div>
+                <div class="photo photo6" data-photo="5">
+                    <Image src={boardImages[5]} alt="Photo 6" />
+                </div>
+
+                <!-- Stickers -->
+                <!-- <div class="sticker sticker1">
+                    <Image src={boardStickers[0]} alt="Sticker1" />
+                </div> -->
+                <div class="sticker sticker2">
+                    <Image src={boardStickers[1]} alt="Sticker2" />
+                </div>
+                <div class="sticker sticker3">
+                    <Image src={boardStickers[2]} alt="Sticker3" />
+                </div>
+                <div class="sticker sticker4">
+                    <Image src={boardStickers[3]} alt="Sticker4" />
+                </div>
+                <div class="sticker sticker5">
+                    <Image src={boardStickers[4]} alt="Sticker5" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModal">&times;</button>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Modal Image" />
+            </div>
+            <div class="modal-description">
+                <p id="modalDescription"></p>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .pinboard-container {
+        padding: 2rem;
+        min-height: 100vh;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .corkboard {
+        position: relative;
+        width: 100%;
+        /* max-width: 1600px; */
+        /* height: 600px; */
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .photo {
+        position: absolute;
+        background: white;
+        border-radius: 3px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .photo:hover {
+        transform: scale(1.05) !important;
+    }
+
+    .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 2px;
+    }
+
+    .photo::before {
+        content: "";
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 16px;
+        height: 16px;
+        background: radial-gradient(circle, var(--white) 30%, var(--white) 70%);
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
+
+    .photo1 {
+        width: 360px;
+        height: 240px;
+        top: 70px;
+        left: 80px;
+        transform: rotate(-8deg);
+        z-index: 5;
+    }
+
+    .photo2 {
+        width: 360px;
+        height: 240px;
+        top: 60px;
+        right: 80px;
+        transform: rotate(12deg);
+        z-index: 3;
+    }
+
+    .photo3 {
+        width: 360px;
+        height: 240px;
+        top: 280px;
+        left: 200px;
+        transform: rotate(3deg);
+        z-index: 7;
+    }
+
+    .photo4 {
+        width: 360px;
+        height: 240px;
+        top: 280px;
+        right: 280px;
+        transform: rotate(-10deg);
+        z-index: 4;
+    }
+
+    .photo5 {
+        width: 360px;
+        height: 240px;
+        bottom: 60px;
+        left: 60px;
+        transform: rotate(7deg);
+        z-index: 6;
+    }
+
+    .photo6 {
+        width: 360px;
+        height: 240px;
+        bottom: 80px;
+        right: 80px;
+        transform: rotate(-5deg);
+        z-index: 2;
+    }
+
+    .sticker {
+        position: absolute;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+
+    .sticker img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .sticker1 {
+        top: 20px;
+        right: 40px;
+        transform: rotate(-12deg);
+        height: 120px;
+        width: 120px;
+    }
+
+    .sticker2 {
+        bottom: 350px;
+        left: 80px;
+        transform: rotate(25deg);
+        height: 120px;
+        width: 120px;
+    }
+
+    .sticker3 {
+        top: 300px;
+        right: 100px;
+        transform: rotate(-8deg);
+        width: 200px;
+        height: 200px;
+    }
+
+    .sticker4 {
+        bottom: -30px;
+        left: 440px;
+        width: 200px;
+        height: 400px;
+    }
+
+    .sticker5 {
+        top: 120px;
+        left: 440px;
+        transform: rotate(2deg);
+        width: 300px;
+        height: 150px;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        transform: scale(0.8) rotateY(180deg);
+        transition: transform 0.4s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+        transform: scale(1) rotateY(0deg);
+    }
+
+    .close-btn {
+        position: absolute;
+        bottom: 15px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.1);
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+        transition: all 0.2s ease;
+        padding: 8px 12px;
+        border-radius: 50%;
+        line-height: 1;
+        z-index: 10;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .close-btn:hover {
+        background: rgba(0, 0, 0, 0.2);
+        color: #000;
+        transform: scale(1.1);
+    }
+
+    .modal-image-container {
+        margin-bottom: 1.5rem;
+    }
+
+    .modal-image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-description {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+    }
+
+    @media (max-width: 1200px) {
+        .photo1 {
+            top: 50px;
+            left: 50px;
+        }
+
+        .photo2 {
+            top: 60px;
+            right: 80px;
+        }
+
+        .photo3 {
+            top: 290px;
+            left: 80px;
+        }
+
+        .photo4 {
+            top: 290px;
+            right: 160px;
+        }
+
+        .photo5 {
+            bottom: 20px;
+            left: 60px;
+        }
+
+        .photo6 {
+            bottom: 20px;
+            right: 80px;
+        }
+
+        .sticker1 {
+            top: 60px;
+            right: 10px;
+        }
+
+        .sticker2 {
+            bottom: 350px;
+            left: 30px;
+            visibility: hidden;
+        }
+
+        .sticker3 {
+            top: 320px;
+            right: 10px;
+        }
+
+        .sticker4 {
+            bottom: -30px;
+            left: 410px;
+        }
+
+        .sticker5 {
+            top: 160px;
+            left: 400px;
+        }
+    }
+
+    @media (max-width: 900px) {
+        .corkboard {
+            height: 500px;
+        }
+
+        .photo {
+            width: 240px !important;
+            height: 160px !important;
+        }
+
+        .photo1 {
+            top: 30px;
+            left: 50px;
+        }
+
+        .photo2 {
+            top: 50px;
+            right: 80px;
+        }
+
+        .photo3 {
+            top: 180px;
+            left: 120px;
+        }
+
+        .photo4 {
+            top: 180px;
+            right: 30px;
+        }
+
+        .photo5 {
+            bottom: 20px;
+            left: 60px;
+        }
+
+        .photo6 {
+            bottom: 20px;
+            right: 130px;
+        }
+
+        .sticker1 {
+            top: 60px;
+            right: 30px;
+        }
+
+        .sticker2 {
+            bottom: 350px;
+            left: 330px;
+        }
+
+        .sticker3 {
+            top: 60px;
+            right: 350px;
+            width: 120px !important;
+            height: 120px !important;
+        }
+
+        .sticker4 {
+            bottom: 35px;
+            left: 280px;
+            width: 160px !important;
+            height: 160px !important;
+        }
+
+        .sticker5 {
+            top: 160px;
+            left: 320px;
+            width: 200px !important;
+            height: 160px !important;
+        }
+
+        .modal-content {
+            margin: 1rem;
+            padding: 1.5rem;
+            max-width: calc(100% - 2rem);
+        }
+    }
+
+    @media (max-width: 700px) {
+        .photo {
+            width: 210px !important;
+            height: 140px !important;
+        }
+
+        .photo1 {
+            top: 30px;
+            left: 0px;
+        }
+
+        .photo2 {
+            top: 50px;
+            right: 0px;
+        }
+
+        .photo3 {
+            top: 180px;
+            left: 0px;
+        }
+
+        .photo4 {
+            top: 190px;
+            right: 0px;
+        }
+
+        .photo5 {
+            bottom: 20px;
+            left: 0px;
+        }
+
+        .photo6 {
+            bottom: 20px;
+            right: 0px;
+        }
+
+        .sticker1 {
+            top: 60px;
+            right: 300px;
+        }
+
+        .sticker2 {
+            bottom: 350px;
+            left: 300px;
+        }
+
+        .sticker3 {
+            top: 350px;
+            right: 350px;
+            visibility: hidden;
+        }
+
+        .sticker4 {
+            bottom: 40px;
+            left: 200px;
+        }
+
+        .sticker5 {
+            top: 190px;
+            left: 210px;
+            width: 160px !important;
+            height: 80px !important;
+    }
+</style>
+
+<script define:vars={{ boardImages, photoDescriptions }}>
+    document.addEventListener("DOMContentLoaded", function () {
+        const photos = document.querySelectorAll(".photo");
+        const modal = document.getElementById("modal");
+        const modalImage = document.getElementById("modalImage");
+        const modalDescription = document.getElementById("modalDescription");
+        const closeBtn = document.getElementById("closeModal");
+
+        photos.forEach((photo) => {
+            photo.addEventListener("click", function () {
+                const photoIndex = parseInt(this.dataset.photo);
+                const img = this.querySelector("img");
+
+                if (img && boardImages[photoIndex]) {
+                    modalImage.src = img.src;
+                    modalDescription.textContent =
+                        photoDescriptions[photoIndex] || "A wonderful memory!";
+                    modal.classList.add("active");
+                }
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove("active");
+        }
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") {
+                closeModal();
+            }
+        });
+    });
+</script>

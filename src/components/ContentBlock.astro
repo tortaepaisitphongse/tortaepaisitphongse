@@ -1,0 +1,228 @@
+---
+import { Image } from "astro:assets";
+
+export interface Props {
+    block: {
+        type: string;
+        heading?: string;
+        content?: string;
+        src?: string;
+        alt?: string;
+        caption?: string;
+        items?: string[];
+    };
+    projectSlug?: string; // Pass the project slug for dynamic imports
+}
+
+const { block, projectSlug } = Astro.props;
+
+// Dynamic image loading for content blocks
+let dynamicImage = null;
+if (block.type === "image" && block.src && projectSlug) {
+    try {
+        // Extract filename from src (e.g., "before-after.jpg" from "/images/before-after.jpg")
+        const filename = block.src.split("/").pop();
+
+        // Try to import from the project's folder
+        const images = import.meta.glob(
+            "../assets/images/work/**/*.{png,jpg,jpeg,webp}",
+            { eager: true }
+        );
+        const imageKey = Object.keys(images).find(
+            (key) => key.includes(`${projectSlug}/`) && key.includes(filename)
+        );
+
+        dynamicImage = imageKey ? images[imageKey].default : null;
+    } catch (error) {
+        console.log("Could not load dynamic image:", error);
+    }
+}
+---
+
+<!-- src/components/ContentBlock.astro -->{
+    block.type === "text" && (
+        <section class="content-section text-block">
+            {block.heading && <h2>{block.heading}</h2>}
+            <p>{block.content}</p>
+        </section>
+    )
+}
+
+{
+    block.type === "image" && (
+        <section class="content-section image-block">
+            <div class="image-container">
+                {dynamicImage ? (
+                    <Image
+                        src={dynamicImage}
+                        alt={block.alt}
+                        width={800}
+                        height={600}
+                    />
+                ) : (
+                    <img src={block.src} alt={block.alt} />
+                )}
+                {block.caption && <figcaption>{block.caption}</figcaption>}
+            </div>
+        </section>
+    )
+}
+
+{
+    block.type === "list" && (
+        <section class="content-section list-block">
+            {block.heading && <h2>{block.heading}</h2>}
+            <ul class="styled-list">
+                {block.items?.map((item) => (
+                    <li>{item}</li>
+                ))}
+            </ul>
+        </section>
+    )
+}
+
+{
+    block.type === "header" && (
+        <section class="content-section header-block">
+            <h1 class="large-header">{block.content}</h1>
+        </section>
+    )
+}
+
+{
+    block.type === "quote" && (
+        <section class="content-section quote-block">
+            <blockquote>
+                <p>"{block.content}"</p>
+                {block.heading && <cite>— {block.heading}</cite>}
+            </blockquote>
+        </section>
+    )
+}
+
+<style>
+    .content-section {
+        margin-bottom: 3rem;
+    }
+
+    /* Text Block Styles */
+    .text-block h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--gray-900);
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+
+    .text-block p {
+        color: var(--gray-800);
+        font-size: 1.125rem;
+        line-height: 1.7;
+    }
+
+    /* Image Block Styles */
+    .image-block .image-container {
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-block img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .image-block figcaption {
+        padding: 1rem;
+        background: var(--gray-50);
+        color: var(--gray-700);
+        font-size: 0.95rem;
+        font-style: italic;
+        text-align: center;
+    }
+
+    /* List Block Styles */
+    .list-block h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: var(--gray-900);
+        margin-bottom: 1.5rem;
+    }
+
+    .styled-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .styled-list li {
+        padding: 0.75rem 0;
+        padding-left: 2rem;
+        position: relative;
+        color: var(--gray-800);
+        font-size: 1.125rem;
+        line-height: 1.6;
+    }
+
+    .styled-list li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: var(--accent);
+        font-weight: bold;
+    }
+
+    /* Header Block Styles */
+    .header-block .large-header {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        text-align: center;
+        margin: 2rem 0;
+        line-height: 1.2;
+    }
+
+    /* Quote Block Styles */
+    .quote-block blockquote {
+        border-left: 4px solid var(--accent);
+        padding-left: 2rem;
+        margin: 2rem 0;
+        background: var(--gray-50);
+        padding: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .quote-block p {
+        font-size: 1.25rem;
+        font-style: italic;
+        color: var(--gray-800);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+    }
+
+    .quote-block cite {
+        color: var(--gray-700);
+        font-size: 1rem;
+        font-style: normal;
+    }
+
+    @media (max-width: 768px) {
+        .text-block h2,
+        .list-block h2 {
+            font-size: 1.5rem;
+        }
+
+        .header-block .large-header {
+            font-size: 2rem;
+        }
+
+        .text-block p,
+        .styled-list li {
+            font-size: 1rem;
+        }
+
+        .quote-block p {
+            font-size: 1.125rem;
+        }
+    }
+</style>

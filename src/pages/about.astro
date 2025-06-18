@@ -35,13 +35,17 @@ const boardStickers = Object.values(boardStickerModules).map(
     <div class="wrapper">
         <div class="pinboard-container">
             <div class="corkboard">
-                <Image src={corkboard} alt="" class="background-image" />
+                <Image
+                    src={corkboard}
+                    alt="Cork pinboard"
+                    class="background-image"
+                />
                 <!-- Photos -->
                 <div class="photo photo1" data-photo="0">
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[0]}
-                        alt="Photo 1"
+                        alt={photoDescriptions[0]}
                         class="photo-img"
                     />
                 </div>
@@ -49,7 +53,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[1]}
-                        alt="Photo 2"
+                        alt={photoDescriptions[1]}
                         class="photo-img"
                     />
                 </div>
@@ -57,7 +61,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[2]}
-                        alt="Photo 3"
+                        alt={photoDescriptions[2]}
                         class="photo-img"
                     />
                 </div>
@@ -65,7 +69,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[3]}
-                        alt="Photo 4"
+                        alt={photoDescriptions[3]}
                         class="photo-img"
                     />
                 </div>
@@ -73,7 +77,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[4]}
-                        alt="Photo 5"
+                        alt={photoDescriptions[4]}
                         class="photo-img"
                     />
                 </div>
@@ -81,7 +85,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                     <div class="skeleton"></div>
                     <Image
                         src={boardImages[5]}
-                        alt="Photo 6"
+                        alt={photoDescriptions[5]}
                         class="photo-img"
                     />
                 </div>

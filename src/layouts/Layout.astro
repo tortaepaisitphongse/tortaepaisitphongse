@@ -9,15 +9,109 @@ import Footer from "../components/Footer.astro";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <link
+            rel="icon"
+            type="image/svg+xml"
+            href="/tortaepaisitphongse_icon.svg"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Tiny5&display=swap"
             rel="stylesheet"
         />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro Basics</title>
+        <!-- SEO Meta Tags -->
+        <title>Hey Tor :D</title>
+        <meta
+            name="description"
+            content="Personal website of Chirapon (Tor) Taepaisitphongse - a student studying Information Systems and Statistics & Machine Learning at Carnegie Mellon. Showcasing projects, snapshots of my life, and resume."
+        />
+        <meta
+            name="keywords"
+            content="Chirapon Taepaisitphongse, Tor Taepaisitphongse, student, machine learning, AI, developer, data analyst, batabases, business analyst, consultant, portfolio, blog, Bangkok, Thailand, Pittsburgh, USA"
+        />
+        <meta name="author" content="Chirapon (Tor) Taepaisitphongse" />
+        <meta
+            name="robots"
+            content="index, follow, max-snippet:-1, max-image-preview:large"
+        />
+        <meta name="googlebot" content="index, follow" />
+        <link rel="canonical" href="https://heytor.com" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://heytor.com" />
+        <meta property="og:title" content="Tor Taepaisitphongse" />
+        <meta
+            property="og:description"
+            content="Personal website of Chirapon (Tor) Taepaisitphongse - a student studying Information Systems and Statistics & Machine Learning at Carnegie Mellon. Showcasing projects, snapshots of my life, and resume."
+        />
+        <meta
+            property="og:image"
+            content="https://heytor.com/images/TorTaepaisitphongse.jpeg"
+        />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Tor smiling" />
+        <meta property="og:site_name" content="heytor" />
+        <meta property="og:locale" content="en_US" />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content="https://heytor.com" />
+        <meta name="twitter:title" content="Tor Taepaisitphongse" />
+        <meta
+            name="twitter:description"
+            content="Personal website of Chirapon (Tor) Taepaisitphongse - a student studying Information Systems and Statistics & Machine Learning at Carnegie Mellon. Showcasing projects, snapshots of my life, and resume."
+        />
+        <meta
+            name="twitter:image"
+            content="https://heytor.com/images/TorTaepaisitphongse.jpeg"
+        />
+        <meta name="twitter:image:alt" content="Tor smiling" />
+
+        <!-- Preloads for Performance -->
+        <link
+            rel="preload"
+            href="/tortaepaisitphongse_icon.svg"
+            as="image"
+            type="image/svg+xml"
+        />
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+        <!-- Structured Data (JSON-LD) -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Person",
+                "name": "Chirapon (Tor) Taepaisitphongse",
+                "url": "https://heytor.com",
+                "image": "https://heytor.com/images/TorTaepaisitphongse.jpeg",
+                "sameAs": [
+                    "https://github.com/tortaepaisitphongse",
+                    "https://linkedin.com/in/ctae",
+                    "https://github.com/ctaepais",
+                    "https://github.com/Tor4848"
+                ],
+                "jobTitle": "Student",
+                "worksFor": {
+                    "@type": "CollegeOrUniversity",
+                    "name": "Carnegie Mellon University"
+                },
+                // "alumniOf": {
+                //     "@type": "CollegeOrUniversity",
+                //     "name": "[Your University]"
+                // },
+                // "knowsAbout": [
+                //     "[Your Skill 1]",
+                //     "[Your Skill 2]",
+                //     "[Your Skill 3]"
+                // ],
+                "description": "Student interested in data-driven technologies pursuing careers in machine learning, AI, and tech-consulting."
+            }
+        </script>
     </head>
     <body>
         <Nav />

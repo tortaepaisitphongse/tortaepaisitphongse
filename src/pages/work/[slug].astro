@@ -1,0 +1,167 @@
+---
+// src/pages/work/[slug].astro
+import Layout from "../../layouts/Layout.astro";
+import ContentBlock from "../../components/ContentBlock.astro";
+import projectsData from "../../content/projects/projects.json";
+
+// This function tells Astro which dynamic routes to generate
+export async function getStaticPaths() {
+    return projectsData.projects.map((project) => ({
+        params: { slug: project.slug },
+        props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+    <main class="project-detail">
+        <div class="container">
+            <!-- Back button -->
+            <a href="/work" class="back-button">← Back to work</a>
+
+            <!-- Project header -->
+            <header class="project-header">
+                <h1 class="project-title">{project.title}</h1>
+                <p class="project-subtitle">{project.description}</p>
+
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Role:</strong>
+                        {project.meta.role}
+                    </div>
+                    <div class="meta-item">
+                        <strong>Timeline:</strong>
+                        {project.meta.timeline}
+                    </div>
+                    <div class="meta-item">
+                        <strong>Company:</strong>
+                        {project.meta.company}
+                    </div>
+                </div>
+
+                <div class="project-tags">
+                    {project.tags.map((tag) => <span class="tag">{tag}</span>)}
+                </div>
+            </header>
+
+            <!-- Project image -->
+            <div class="project-image-large">
+                <img src={project.image} alt={project.title} />
+            </div>
+
+            <!-- Project content - Dynamic blocks -->
+            <div class="project-content">
+                {
+                    project.content?.map((block) => (
+                        <ContentBlock
+                            block={block}
+                            projectSlug={project.slug}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .project-detail {
+        padding: 2rem 0;
+        min-height: calc(100vh - 80px);
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .back-button {
+        display: inline-block;
+        color: var(--gray-600);
+        text-decoration: none;
+        margin-bottom: 2rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .back-button:hover {
+        color: var(--black);
+    }
+
+    .project-header {
+        margin-bottom: 3rem;
+    }
+
+    .project-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .project-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+    }
+
+    .project-meta {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .meta-item {
+        font-size: 0.95rem;
+        color: var(--gray-200);
+    }
+
+    .meta-item strong {
+        color: var(--gray-100);
+    }
+
+    .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .tag {
+        background: var(--gray-100);
+        color: var(--gray-800);
+        padding: 0.4rem 0.8rem;
+        border-radius: 1rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+    }
+
+    .project-image-large {
+        margin-bottom: 3rem;
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+
+    .project-image-large img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .project-content {
+        line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+        .project-title {
+            font-size: 2.5rem;
+        }
+
+        .project-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+</style>

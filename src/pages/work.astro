@@ -1,0 +1,97 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import projectsData from "../content/projects/projects.json";
+
+const allProjects = projectsData.projects;
+const featuredProjects = allProjects.filter((project) => project.featured);
+const otherProjects = allProjects.filter((project) => !project.featured);
+---
+
+<Layout>
+    <div class="wrapper gap-8 lg:gap-20">
+        <!-- Featured Projects Section -->
+        <section class="featured-section">
+            <!-- Swap once projects updated -->
+            <div class="section-title empty-work">
+                <h2>Nothing to see yet :D</h2>
+            </div>
+            <!-- <div class="section-title">
+                <h2>Select works</h2>
+            </div> -->
+            <div class="projects-grid">
+                {
+                    featuredProjects.map((project) => (
+                        <ProjectCard
+                            slug={project.slug}
+                            title={project.title}
+                            description={project.description}
+                            tags={project.tags}
+                            image={project.image}
+                            bgColor={project.bgColor}
+                        />
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Other Projects Section -->
+        {
+            otherProjects.length > 0 && (
+                <section class="other-section">
+                    <div class="section-title">
+                        <h2>Other cool work</h2>
+                    </div>
+                    <div class="projects-grid">
+                        {otherProjects.map((project) => (
+                            <ProjectCard
+                                slug={project.slug}
+                                title={project.title}
+                                description={project.description}
+                                tags={project.tags}
+                                image={project.image}
+                                bgColor={project.bgColor}
+                            />
+                        ))}
+                    </div>
+                </section>
+            )
+        }
+    </div>
+</Layout>
+
+<style>
+    /* Remove class above once projects added */
+    .empty-work {
+        height: calc(100vh - 80px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .featured-section,
+    .other-section {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        padding: 2em;
+    }
+
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        align-items: stretch;
+    }
+
+    @media (max-width: 768px) {
+        .section-title h2 {
+            font-size: var(--text-3xl);
+        }
+
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

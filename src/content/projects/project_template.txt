@@ -1,0 +1,47 @@
+{
+  "projects": [
+    {
+      "slug": "THE URL",
+      "title": "",
+      "description": "",
+      "tags": ["", "", ""],
+      "image": "",
+      "bgColor": "orange/purple/blue/pink/green",
+      "featured": true,
+      "meta": {
+        "role": "",
+        "timeline": "",
+        "company": "",
+        "type": ""
+      },
+      "content": [
+        {
+          "type": "text",
+          "heading": "Overview",
+          "content": ""
+        },
+        {
+          "type": "image",
+          "src": "",
+          "alt": "",
+          "caption": ""
+        },
+        {
+          "type": "text",
+          "heading": "",
+          "content": ""
+        },
+        {
+          "type": "list",
+          "heading": "",
+          "items": [
+            "",
+            "", 
+            "",
+            ""
+          ]
+        }
+      ]
+    }
+  ]
+}

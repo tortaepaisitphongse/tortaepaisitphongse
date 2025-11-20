@@ -82,8 +82,8 @@ def find_images(directory, extensions=('.jpg', '.jpeg', '.png', '.bmp', '.tiff')
 
 def main():
     parser = argparse.ArgumentParser(description='Compress images for web use')
-    parser.add_argument('--directory', '-d', default='src/assets', 
-                       help='Directory to search for images (default: src/assets)')
+    parser.add_argument('--directory', '-d', default=None, 
+                       help='Directory to search for images (default: src/assets and public)')
     parser.add_argument('--quality', '-q', type=int, default=75,
                        help='JPEG quality 1-100 (default: 75)')
     parser.add_argument('--max-width', type=int, default=1200,
@@ -97,23 +97,43 @@ def main():
     
     args = parser.parse_args()
     
-    # Check if directory exists
-    if not os.path.exists(args.directory):
-        print(f"Error: Directory '{args.directory}' not found!")
-        sys.exit(1)
+    # Default directories if none specified
+    if args.directory is None:
+        directories = ['src/assets', 'public']
+    else:
+        directories = [args.directory]
     
-    # Find all images
-    images = find_images(args.directory)
+    all_images = []
     
-    if not images:
-        print(f"No images found in '{args.directory}'")
+    # Find all images in specified directories
+    for directory in directories:
+        if not os.path.exists(directory):
+            print(f"⚠️  Directory '{directory}' not found, skipping...")
+            continue
+        
+        images = find_images(directory)
+        all_images.extend(images)
+    
+    if not all_images:
+        print("No images found in specified directories")
         return
     
-    print(f"Found {len(images)} image(s) in '{args.directory}':")
+    print(f"Found {len(all_images)} image(s) total:")
     
     # Process each image
-    for image_path in images:
-        rel_path = os.path.relpath(image_path, args.directory)
+    for image_path in all_images:
+        # Find which base directory this image belongs to
+        base_dir = None
+        for directory in directories:
+            if os.path.exists(directory) and image_path.startswith(os.path.abspath(directory)):
+                base_dir = directory
+                break
+        
+        if base_dir:
+            rel_path = os.path.relpath(image_path, base_dir)
+        else:
+            rel_path = image_path
+        
         file_size = os.path.getsize(image_path) / 1024 / 1024  # MB
         
         print(f"\n📁 {rel_path} ({file_size:.1f}MB)")

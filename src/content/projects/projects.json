@@ -1,5 +1,72 @@
 {
   "projects": [
-    
+    {
+      "slug": "portfolio-website",
+      "title": "heytor.com",
+      "description": "A personal portfolio website that reflects my personality and design style through interactive visualizations, thoughtful animations, and a cohesive design system. Built with Astro to showcase my work while learning modern web development and deployment.",
+      "tags": ["Astro", "TypeScript", "Web Development", "SVG Animations", "Design System", "Deployment"],
+      "image": "/images/projects/heytor.png",
+      "bgColor": "blue",
+      "featured": true,
+      "meta": {
+        "role": "Full Stack Developer",
+        "tools": ["Astro", "TypeScript", "CSS", "Figma"],
+        "team": "Solo Project",
+        "duration": "2024 - Present"
+      },
+      "content": [
+        {
+          "type": "section",
+          "heading": "CONTEXT",
+          "subheading": "Sharing my personality through design",
+          "content": "I wanted to create a portfolio that reflects who I am: combining clean minimalism with playful, data science inspired elements that showcase both my technical skills and personality."
+        },
+        {
+          "type": "section",
+          "heading": "DESIGN APPROACH",
+          "subheading": "Balancing professionalism and playfulness",
+          "content": "Every design decision was intentional. From the animated neural network on the About page to the interactive network graph on the Home page, I infused data science elements while maintaining a polished, professional aesthetic."
+        },
+        {
+          "type": "image",
+          "src": "/images/work/portfolio-website/hero.png",
+          "alt": "Design details and personality elements",
+          "caption": "Hero section with animated network graph"
+        },
+        {
+          "type": "numbered",
+          "heading": "SOLUTION HIGHLIGHTS",
+          "items": [
+            {
+              "number": "1",
+              "title": "Interactive Visualizations",
+              "description": "Custom animated network graphs and neural network visualizations using SVG and JavaScript"
+            },
+            {
+              "number": "2",
+              "title": "Cohesive Design System",
+              "description": "Developed a custom design system with typography, color palette, and component architecture"
+            },
+            {
+              "number": "3",
+              "title": "Learning & Deployment",
+              "description": "Dove deep into modern web development with Astro and TypeScript, learning the full deployment pipeline from development to production"
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "src": "/images/work/portfolio-website/pinboard.png",
+          "alt": "Interactive pinboard",
+          "caption": "Interactive pinboard with stickers"
+        },
+        {
+          "type": "section",
+          "heading": "REFLECTION",
+          "subheading": "What I learned",
+          "content": "Beyond technical skills, I learned how to translate my personality into code. The process of iterating on animations and balancing professionalism with playfulness taught me a lot about design thinking. Most importantly, I created something that lets me share a part of me with the world."
+        }
+      ]
+    }
   ]
 }

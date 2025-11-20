@@ -9,10 +9,10 @@ export interface Props {
     employmentType?: string;
     location?: string;
     bgColor?: string;
-    logo?: string; // Image path or icon name
-    logoType?: "image" | "icon"; // Type of logo
-    skills?: string[]; // Array of skills/technologies
-    pinned?: boolean; // Whether this experience is pinned/featured
+    logo?: string;
+    logoType?: "image" | "icon";
+    skills?: string[];
+    pinned?: boolean;
 }
 
 const {
@@ -30,7 +30,7 @@ const {
 } = Astro.props;
 ---
 
-<article class={`experience-card ${bgColor}`}>
+<article class={`experience-card ${bgColor} ${pinned ? "pinned" : ""}`}>
     <div class="experience-header">
         <div class="experience-title-row">
             {
@@ -48,7 +48,7 @@ const {
                 <div class="title-row">
                     <h3 class="experience-title">{title}</h3>
                     {
-                        employmentType && (
+                        employmentType && employmentType === "Internship" && (
                             <span class="employment-type">
                                 {employmentType}
                             </span>
@@ -67,8 +67,12 @@ const {
     {
         skills && skills.length > 0 && (
             <div class="skills-section">
-                <p class="skills-label">Skills and Technologies:</p>
-                <p class="skills-list">{skills.join(", ")}</p>
+                <p class="skills-label">Skills and Technologies</p>
+                <div class="skills-list">
+                    {skills.map((skill) => (
+                        <span class="skill-tag">{skill}</span>
+                    ))}
+                </div>
             </div>
         )
     }
@@ -76,50 +80,35 @@ const {
 
 <style>
     .experience-card {
-        border-radius: 1.5rem;
-        padding: 2rem;
+        border-radius: 0.5rem;
+        padding: 2.5rem;
+        border: 1px solid var(--gray-200);
+        background: transparent;
         transition:
             transform 0.3s ease,
+            border-color 0.3s ease,
             box-shadow 0.3s ease;
         height: 100%;
         display: flex;
         flex-direction: column;
+        position: relative;
     }
 
     .experience-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+        border-color: var(--gray-300);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
 
-    .experience-card.orange {
-        background: linear-gradient(135deg, #fff5e6 0%, #ffe4b3 100%);
-    }
-
-    .experience-card.purple {
-        background: linear-gradient(135deg, #2d1b69 0%, #1a0f3d 100%);
-        color: white;
-    }
-
-    .experience-card.blue {
-        background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 100%);
-    }
-
-    .experience-card.pink {
-        background: linear-gradient(135deg, #ffe6f3 0%, #ffb3d9 100%);
-    }
-
-    .experience-card.green {
-        background: linear-gradient(135deg, #e6fff0 0%, #b3ffcc 100%);
-    }
-
-    .experience-card.cmu {
-        background: #c41230;
-        color: white;
-    }
-
-    .experience-card.cmu-dsc {
-        background: #052b56;
-        color: white;
+    .experience-card.pinned::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--link-color);
+        border-radius: 0.5rem 0.5rem 0 0;
     }
 
     .experience-header {
@@ -136,27 +125,22 @@ const {
 
     .company-logo {
         flex-shrink: 0;
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 8px;
+        border-radius: 0.5rem;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--gray-900);
+        border: 1px solid var(--gray-200);
     }
 
     .company-logo img {
         width: 100%;
         height: 100%;
         object-fit: contain;
-        padding: 10px;
-    }
-
-    .experience-card.cmu .company-logo,
-    .experience-card.cmu-dsc .company-logo,
-    .experience-card.purple .company-logo {
-        background: rgba(255, 255, 255, 0.15);
+        padding: 12px;
     }
 
     .title-content {
@@ -175,40 +159,28 @@ const {
 
     .experience-title {
         font-size: 1.5rem;
-        font-weight: 700;
+        font-weight: 600;
         margin-bottom: 0;
         line-height: 1.3;
+        color: var(--gray-0);
     }
 
     .employment-type {
         font-size: 0.875rem;
         font-weight: 500;
         padding: 0.25rem 0.75rem;
-        border-radius: 1rem;
-        background: rgba(0, 0, 0, 0.1);
+        border-radius: 0.25rem;
+        background: var(--gray-800);
+        color: var(--gray-300);
+        border: 1px solid var(--gray-700);
         white-space: nowrap;
     }
 
-    .experience-card.purple .employment-type {
-        background: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .experience-card.cmu .employment-type {
-        background: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
-
-    .experience-card.cmu-dsc .employment-type {
-        background: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
-    }
-
     .experience-company {
-        font-size: 1.1rem;
-        font-weight: 600;
+        font-size: 1.125rem;
+        font-weight: 500;
         margin-bottom: 0;
-        opacity: 0.9;
+        color: var(--gray-300);
     }
 
     .experience-meta {
@@ -220,55 +192,61 @@ const {
     }
 
     .experience-period {
-        font-size: 0.9rem;
-        opacity: 0.7;
+        font-size: 0.875rem;
+        color: var(--gray-400);
         margin-bottom: 0;
     }
 
     .experience-location {
-        font-size: 0.9rem;
-        opacity: 0.7;
+        font-size: 0.875rem;
+        color: var(--gray-400);
         margin-bottom: 0;
     }
 
     .experience-description {
         font-size: 1rem;
-        line-height: 1.6;
-        opacity: 0.9;
+        line-height: 1.7;
+        color: var(--gray-100);
         flex: 1;
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
     }
 
     .skills-section {
         margin-top: auto;
         padding-top: 1.5rem;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-    }
-
-    .experience-card.cmu .skills-section,
-    .experience-card.purple .skills-section {
-        border-top-color: rgba(255, 255, 255, 0.2);
+        border-top: 1px solid var(--gray-200);
     }
 
     .skills-label {
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         font-weight: 600;
-        margin-bottom: 0.5rem;
-        opacity: 0.8;
+        margin-bottom: 0.75rem;
+        color: var(--gray-500);
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.08em;
     }
 
     .skills-list {
-        font-size: 0.875rem;
-        line-height: 1.6;
-        opacity: 0.8;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
         margin: 0;
+    }
+
+    .skill-tag {
+        background: var(--gray-800);
+        color: var(--gray-300);
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
+        border: 1px solid var(--gray-700);
     }
 
     @media (max-width: 768px) {
         .experience-card {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .company-logo {
@@ -282,6 +260,10 @@ const {
 
         .experience-company {
             font-size: 1rem;
+        }
+
+        .experience-description {
+            font-size: 0.9375rem;
         }
     }
 </style>

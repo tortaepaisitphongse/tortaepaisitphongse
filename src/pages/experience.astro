@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import ExperienceCard from "../components/ExperienceCard.astro";
 
-// Experience data - pinned experiences appear first, then chronological order (most recent first)
 const allExperiences = [
     {
         title: "College Teaching Assistant",
@@ -12,7 +11,7 @@ const allExperiences = [
         description:
             "Support 150+ students by leading weekly labs and office hours focused on SQL, MongoDB, schema design, and query optimization. Mentor project teams translating business requirements into complete data models, reinforcing real-world data engineering and consulting skills.",
         bgColor: "cmu",
-        logo: "/images/icons/cmu-logo.png", // Add CMU logo image
+        logo: "/images/icons/cmu-logo.png",
         logoType: "image",
         skills: [
             "SQL",
@@ -54,7 +53,7 @@ const allExperiences = [
         description:
             "Supported a large-scale banking transformation project by analyzing operational, financial, and risk processes to identify efficiency opportunities. Contributed to the design of data-driven operating models that enhanced productivity, decision visibility, and customer-centric performance management. Wrote microservices in Golang for AI-powered automated marketing platform.",
         bgColor: "purple",
-        logo: "/images/icons/accenture-logo.png", // Add Accenture logo image
+        logo: "/images/icons/accenture-logo.png",
         logoType: "image",
         pinned: true,
         skills: [
@@ -75,7 +74,7 @@ const allExperiences = [
         description:
             "Developed a predictive maintenance pipeline using ARIMA forecasting and XGBoost anomaly detection, deployed via AWS with real-time dashboards for risk monitoring. Benchmarked and recommended data cleaning tools that accelerated preprocessing workflows and informed C-suite adoption decisions.",
         bgColor: "orange",
-        logo: "/images/icons/hexa-logo.png", // Add Hexa Tech logo image
+        logo: "/images/icons/hexa-logo.png",
         logoType: "image",
         pinned: true,
         skills: [
@@ -96,7 +95,7 @@ const allExperiences = [
         description:
             "I led 3-4 tours weekly, guiding groups of 15-20 visitors and using strong communication skills to engage and inform diverse audiences. Additionally, I hosted virtual events and discussion panels to foster engagement and promote Carnegie Mellon's brand stories. By participating in weekly meetings, I collaborated with team members to reflect on and enhance the visitor experience, driving continuous improvement and ensuring a positive, memorable experience for all attendees.",
         bgColor: "cmu",
-        logo: "/images/icons/cmu-logo.png", // Add CMU logo image
+        logo: "/images/icons/cmu-logo.png",
         logoType: "image",
         skills: [
             "Public Speaking",
@@ -110,12 +109,12 @@ const allExperiences = [
         title: "Outreach and Program Coordinator",
         company: "Charles Street Area Corporation",
         period: "May 2024 - December 2024",
-        employmentType: "Part-time",
+        employmentType: "Internship",
         location: "Pittsburgh, PA",
         description:
             "Led outreach for Juneteenth Community Day and the Cross-Strauss Parklet reopening with Mayor Ed Gainey and state reps, managing event logistics and community engagement. Revamped the website for accessibility and SEO, launched a 311 community portal, and automated newsletters via MailChimp. Secured a $100K Pittsburgh Foundation grant and authored an internal technical-skills handbook. Promoted from Administrative Intern to Program Coordinator.",
         bgColor: "orange",
-        logo: "/images/icons/csac-logo.png", // Add Charles Street logo image
+        logo: "/images/icons/csac-logo.png",
         logoType: "image",
         skills: [
             "Project Management",
@@ -130,12 +129,9 @@ const allExperiences = [
     },
 ];
 
-// Sort experiences: pinned first, then by date (most recent first)
 const experiences = allExperiences.sort((a, b) => {
-    // Pinned experiences come first
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
-    // Within pinned or unpinned groups, maintain original order (already chronological)
     return 0;
 });
 ---
@@ -143,9 +139,9 @@ const experiences = allExperiences.sort((a, b) => {
 <Layout>
     <main class="experience-page">
         <div class="wrapper">
-            <div class="page-header">
+            <header class="page-header">
                 <h1>Experience</h1>
-            </div>
+            </header>
             <div class="experiences-list">
                 {
                     experiences.map((experience) => (
@@ -172,34 +168,65 @@ const experiences = allExperiences.sort((a, b) => {
 <style>
     .experience-page {
         min-height: 100vh;
-        padding: 2rem 0;
+        padding: 4rem 0 6rem;
     }
 
     .page-header {
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
+        padding: 0 2rem;
         text-align: center;
     }
 
     .page-header h1 {
-        font-size: var(--text-4xl);
-        font-weight: 700;
+        font-size: var(--text-3xl);
+        font-weight: 600;
+        color: var(--gray-0);
+        margin: 0;
     }
 
     .experiences-list {
         display: flex;
         flex-direction: column;
-        gap: 2rem;
-        max-width: 900px;
+        gap: 3rem;
+        max-width: 1000px;
         margin: 0 auto;
+        padding: 0 2rem;
     }
 
-    @media (max-width: 768px) {
+    @media (min-width: 50em) {
+        .experience-page {
+            padding: 6rem 0 8rem;
+        }
+
+        .page-header {
+            padding: 0 4rem;
+        }
+
         .page-header h1 {
-            font-size: var(--text-3xl);
+            font-size: var(--text-4xl);
         }
 
         .experiences-list {
-            gap: 1.5rem;
+            padding: 0 4rem;
+            gap: 4rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .experience-page {
+            padding: 3rem 0 4rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: var(--text-2xl);
+        }
+
+        .experiences-list {
+            gap: 2.5rem;
         }
     }
 </style>

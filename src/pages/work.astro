@@ -10,15 +10,10 @@ const otherProjects = allProjects.filter((project) => !project.featured);
 
 <Layout>
     <div class="wrapper gap-8 lg:gap-20">
-        <!-- Featured Projects Section -->
         <section class="featured-section">
-            <!-- Swap once projects updated -->
-            <div class="section-title empty-work">
-                <h2>Nothing to see yet :D</h2>
-            </div>
-            <!-- <div class="section-title">
+            <div class="section-title">
                 <h2>Select works</h2>
-            </div> -->
+            </div>
             <div class="projects-grid">
                 {
                     featuredProjects.map((project) => (
@@ -35,7 +30,6 @@ const otherProjects = allProjects.filter((project) => !project.featured);
             </div>
         </section>
 
-        <!-- Other Projects Section -->
         {
             otherProjects.length > 0 && (
                 <section class="other-section">
@@ -61,14 +55,6 @@ const otherProjects = allProjects.filter((project) => !project.featured);
 </Layout>
 
 <style>
-    /* Remove class above once projects added */
-    .empty-work {
-        height: calc(100vh - 80px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     .featured-section,
     .other-section {
         margin-bottom: 4rem;

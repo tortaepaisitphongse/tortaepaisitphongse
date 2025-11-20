@@ -5,41 +5,60 @@ export interface Props {
     block: {
         type: string;
         heading?: string;
+        subheading?: string;
         content?: string;
         src?: string;
         alt?: string;
         caption?: string;
-        items?: string[];
+        items?:
+            | string[]
+            | Array<{ number: string; title: string; description: string }>;
     };
-    projectSlug?: string; // Pass the project slug for dynamic imports
+    projectSlug?: string;
 }
 
 const { block, projectSlug } = Astro.props;
 
-// Dynamic image loading for content blocks
-let dynamicImage = null;
+let dynamicImage: any = null;
 if (block.type === "image" && block.src && projectSlug) {
     try {
-        // Extract filename from src (e.g., "before-after.jpg" from "/images/before-after.jpg")
         const filename = block.src.split("/").pop();
 
-        // Try to import from the project's folder
-        const images = import.meta.glob(
-            "../assets/images/work/**/*.{png,jpg,jpeg,webp}",
-            { eager: true }
-        );
-        const imageKey = Object.keys(images).find(
-            (key) => key.includes(`${projectSlug}/`) && key.includes(filename)
-        );
+        if (filename) {
+            const images = import.meta.glob(
+                "../assets/images/work/**/*.{png,jpg,jpeg,webp}",
+                { eager: true }
+            );
+            const imageKey = Object.keys(images).find(
+                (key) =>
+                    key.includes(`${projectSlug}/`) && key.includes(filename)
+            );
 
-        dynamicImage = imageKey ? images[imageKey].default : null;
+            if (imageKey && images[imageKey]) {
+                dynamicImage = (images[imageKey] as any).default || null;
+            }
+        }
     } catch (error) {
         console.log("Could not load dynamic image:", error);
     }
 }
 ---
 
-<!-- src/components/ContentBlock.astro -->{
+{
+    block.type === "section" && (
+        <section class="content-section section-block">
+            {block.heading && (
+                <div class="section-heading">{block.heading}</div>
+            )}
+            {block.subheading && (
+                <h2 class="section-subheading">{block.subheading}</h2>
+            )}
+            {block.content && <p class="section-content">{block.content}</p>}
+        </section>
+    )
+}
+
+{
     block.type === "text" && (
         <section class="content-section text-block">
             {block.heading && <h2>{block.heading}</h2>}
@@ -55,14 +74,46 @@ if (block.type === "image" && block.src && projectSlug) {
                 {dynamicImage ? (
                     <Image
                         src={dynamicImage}
-                        alt={block.alt}
+                        alt={block.alt || ""}
                         width={800}
                         height={600}
                     />
                 ) : (
-                    <img src={block.src} alt={block.alt} />
+                    <img src={block.src} alt={block.alt || ""} />
                 )}
                 {block.caption && <figcaption>{block.caption}</figcaption>}
+            </div>
+        </section>
+    )
+}
+
+{
+    block.type === "numbered" && (
+        <section class="content-section numbered-block">
+            {block.heading && (
+                <div class="section-heading">{block.heading}</div>
+            )}
+            <div class="numbered-items">
+                {block.items?.map((item) => {
+                    if (typeof item === "object" && "number" in item) {
+                        return (
+                            <div class="numbered-item">
+                                <div class="numbered-item-header">
+                                    <span class="numbered-item-number">
+                                        {item.number}.
+                                    </span>
+                                    <h3 class="numbered-item-title">
+                                        {item.title}
+                                    </h3>
+                                </div>
+                                <p class="numbered-item-description">
+                                    {item.description}
+                                </p>
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
             </div>
         </section>
     )
@@ -74,7 +125,9 @@ if (block.type === "image" && block.src && projectSlug) {
             {block.heading && <h2>{block.heading}</h2>}
             <ul class="styled-list">
                 {block.items?.map((item) => (
-                    <li>{item}</li>
+                    <li>
+                        {typeof item === "string" ? item : item.title || item}
+                    </li>
                 ))}
             </ul>
         </section>
@@ -102,7 +155,88 @@ if (block.type === "image" && block.src && projectSlug) {
 
 <style>
     .content-section {
-        margin-bottom: 3rem;
+        margin-bottom: 5rem;
+    }
+
+    /* Section Block Styles */
+    .section-block {
+        margin-bottom: 6rem;
+    }
+
+    .section-heading {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--gray-500);
+        margin-bottom: 1rem;
+    }
+
+    .section-subheading {
+        font-size: var(--text-2xl);
+        font-weight: 700;
+        color: var(--gray-0);
+        margin-bottom: 1.25rem;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+    }
+
+    .section-content {
+        font-size: var(--text-base);
+        line-height: 1.7;
+        color: var(--gray-100);
+        max-width: 80ch;
+    }
+
+    /* Numbered Block Styles */
+    .numbered-block {
+        margin-bottom: 6rem;
+    }
+
+    .numbered-block .section-heading {
+        margin-bottom: 2.5rem;
+    }
+
+    .numbered-items {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .numbered-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .numbered-item-header {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+    }
+
+    .numbered-item-number {
+        font-size: var(--text-2xl);
+        font-weight: 700;
+        color: var(--gray-500);
+        min-width: 2.5rem;
+        flex-shrink: 0;
+    }
+
+    .numbered-item-title {
+        font-size: var(--text-lg);
+        font-weight: 600;
+        color: var(--gray-0);
+        margin: 0;
+        line-height: 1.3;
+    }
+
+    .numbered-item-description {
+        font-size: var(--text-sm);
+        line-height: 1.6;
+        color: var(--gray-200);
+        margin-left: 3.5rem;
+        max-width: 75ch;
     }
 
     /* Text Block Styles */
@@ -121,10 +255,15 @@ if (block.type === "image" && block.src && projectSlug) {
     }
 
     /* Image Block Styles */
+    .image-block {
+        margin-bottom: 6rem;
+    }
+
     .image-block .image-container {
-        border-radius: 1rem;
+        border-radius: 0.75rem;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        margin-bottom: 1rem;
     }
 
     .image-block img {
@@ -134,12 +273,11 @@ if (block.type === "image" && block.src && projectSlug) {
     }
 
     .image-block figcaption {
-        padding: 1rem;
-        background: var(--gray-50);
-        color: var(--gray-700);
-        font-size: 0.95rem;
-        font-style: italic;
+        padding: 0.75rem 0;
+        color: var(--gray-500);
+        font-size: var(--text-sm);
         text-align: center;
+        font-style: italic;
     }
 
     /* List Block Styles */
@@ -207,6 +345,54 @@ if (block.type === "image" && block.src && projectSlug) {
     }
 
     @media (max-width: 768px) {
+        .content-section {
+            margin-bottom: 4rem;
+        }
+
+        .section-block {
+            margin-bottom: 4rem;
+        }
+
+        .section-subheading {
+            font-size: var(--text-2xl);
+        }
+
+        .section-content {
+            font-size: var(--text-base);
+            max-width: 100%;
+        }
+
+        .numbered-block {
+            margin-bottom: 4rem;
+        }
+
+        .numbered-block .section-heading {
+            margin-bottom: 2rem;
+        }
+
+        .numbered-items {
+            gap: 2rem;
+        }
+
+        .numbered-item-number {
+            font-size: var(--text-xl);
+            min-width: 2rem;
+        }
+
+        .numbered-item-title {
+            font-size: var(--text-lg);
+        }
+
+        .numbered-item-description {
+            font-size: var(--text-sm);
+            margin-left: 2.5rem;
+            max-width: 100%;
+        }
+
+        .image-block {
+            margin-bottom: 4rem;
+        }
+
         .text-block h2,
         .list-block h2 {
             font-size: 1.5rem;

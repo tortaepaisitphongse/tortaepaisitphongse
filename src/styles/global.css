@@ -39,7 +39,8 @@
         sans-serif;
     /* --font-body: "Cactus Classical Serif", var(--font-system); */
     --font-body: "IBM Plex Mono", var(--font-system);
-    --font-brand: "Tiny5", var(--font-system);
+    /* --font-brand: "Tiny5", var(--font-system); */
+    --font-brand: "Space Grotesk", var(--font-system);
 }
 
 html,

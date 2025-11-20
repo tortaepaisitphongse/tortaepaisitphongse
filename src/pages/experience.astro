@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import ExperienceCard from "../components/ExperienceCard.astro";
 
-// Experience data - chronological order (most recent first)
-const experiences = [
+// Experience data - pinned experiences appear first, then chronological order (most recent first)
+const allExperiences = [
     {
         title: "College Teaching Assistant",
         company: "Database Design & Development",
@@ -11,16 +11,61 @@ const experiences = [
         employmentType: "Part-time",
         description:
             "Support 150+ students by leading weekly labs and office hours focused on SQL, MongoDB, schema design, and query optimization. Mentor project teams translating business requirements into complete data models, reinforcing real-world data engineering and consulting skills.",
-        bgColor: "blue",
+        bgColor: "cmu",
+        logo: "/images/icons/cmu-logo.png", // Add CMU logo image
+        logoType: "image",
+        skills: [
+            "SQL",
+            "MongoDB",
+            "Database Design",
+            "Schema Design",
+            "Query Optimization",
+            "Data Modeling",
+            "Teaching",
+            "Mentoring",
+        ],
     },
     {
-        title: "Business Analyst",
+        title: "Events Director",
+        company: "Carnegie Mellon Data Science Club",
+        period: "August 2024 - Present",
+        employmentType: "Part-time",
+        location: "Pittsburgh, Pennsylvania, United States",
+        description:
+            "Organize large-scale competitions (300+ participants) and weekly events, such as AI Agents Weekend, to foster hands-on learning in machine learning and AI. Launched the club's client-facing projects initiative, enabling members to tackle real-world data challenges and expand the club's industry presence. Oversee operations for a 1,500+ member organization, managing recruitment, tech, and new initiatives to drive growth and campus impact.",
+        bgColor: "cmu-dsc",
+        logo: "/images/icons/cmu-dsc-logo.png",
+        logoType: "image",
+        skills: [
+            "Event Planning",
+            "Project Management",
+            "Operations Management",
+            "Team Leadership",
+            "Recruitment",
+            "Strategic Planning",
+            "Community Building",
+        ],
+    },
+    {
+        title: "Business Analyst & Backend Developer",
         company: "Accenture",
         period: "June 2025 - August 2025",
         employmentType: "Internship",
         description:
-            "Supported a large-scale banking transformation project by analyzing operational, financial, and risk processes to identify efficiency opportunities. Contributed to the design of data-driven operating models that enhanced productivity, decision visibility, and customer-centric performance management.",
+            "Supported a large-scale banking transformation project by analyzing operational, financial, and risk processes to identify efficiency opportunities. Contributed to the design of data-driven operating models that enhanced productivity, decision visibility, and customer-centric performance management. Wrote microservices in Golang for AI-powered automated marketing platform.",
         bgColor: "purple",
+        logo: "/images/icons/accenture-logo.png", // Add Accenture logo image
+        logoType: "image",
+        pinned: true,
+        skills: [
+            "Process Flow Mapping",
+            "Business Process Improvement",
+            "Excel",
+            "PowerPoint",
+            "Data Visualization",
+            "Golang",
+            "Microservices",
+        ],
     },
     {
         title: "Data Solutions Intern",
@@ -30,6 +75,19 @@ const experiences = [
         description:
             "Developed a predictive maintenance pipeline using ARIMA forecasting and XGBoost anomaly detection, deployed via AWS with real-time dashboards for risk monitoring. Benchmarked and recommended data cleaning tools that accelerated preprocessing workflows and informed C-suite adoption decisions.",
         bgColor: "orange",
+        logo: "/images/icons/hexa-logo.png", // Add Hexa Tech logo image
+        logoType: "image",
+        pinned: true,
+        skills: [
+            "ARIMA",
+            "XGBoost",
+            "AWS",
+            "Time Series Forecasting",
+            "Anomaly Detection",
+            "Data Pipeline",
+            "Python",
+            "Data Visualization",
+        ],
     },
     {
         title: "Tartan Ambassador",
@@ -37,7 +95,16 @@ const experiences = [
         period: "August 2023 - Present",
         description:
             "I led 3-4 tours weekly, guiding groups of 15-20 visitors and using strong communication skills to engage and inform diverse audiences. Additionally, I hosted virtual events and discussion panels to foster engagement and promote Carnegie Mellon's brand stories. By participating in weekly meetings, I collaborated with team members to reflect on and enhance the visitor experience, driving continuous improvement and ensuring a positive, memorable experience for all attendees.",
-        bgColor: "green",
+        bgColor: "cmu",
+        logo: "/images/icons/cmu-logo.png", // Add CMU logo image
+        logoType: "image",
+        skills: [
+            "Public Speaking",
+            "Event Planning",
+            "Customer Service",
+            "Communication",
+            "Team Collaboration",
+        ],
     },
     {
         title: "Outreach and Program Coordinator",
@@ -47,9 +114,30 @@ const experiences = [
         location: "Pittsburgh, PA",
         description:
             "Led outreach for Juneteenth Community Day and the Cross-Strauss Parklet reopening with Mayor Ed Gainey and state reps, managing event logistics and community engagement. Revamped the website for accessibility and SEO, launched a 311 community portal, and automated newsletters via MailChimp. Secured a $100K Pittsburgh Foundation grant and authored an internal technical-skills handbook. Promoted from Administrative Intern to Program Coordinator.",
-        bgColor: "pink",
+        bgColor: "orange",
+        logo: "/images/icons/csac-logo.png", // Add Charles Street logo image
+        logoType: "image",
+        skills: [
+            "Project Management",
+            "Event Planning",
+            "Community Outreach",
+            "Web Development",
+            "SEO",
+            "MailChimp",
+            "Grant Writing",
+            "Content Creation",
+        ],
     },
 ];
+
+// Sort experiences: pinned first, then by date (most recent first)
+const experiences = allExperiences.sort((a, b) => {
+    // Pinned experiences come first
+    if (a.pinned && !b.pinned) return -1;
+    if (!a.pinned && b.pinned) return 1;
+    // Within pinned or unpinned groups, maintain original order (already chronological)
+    return 0;
+});
 ---
 
 <Layout>
@@ -69,6 +157,10 @@ const experiences = [
                             employmentType={experience.employmentType}
                             location={experience.location}
                             bgColor={experience.bgColor}
+                            logo={experience.logo}
+                            logoType={experience.logoType as "image" | "icon"}
+                            skills={experience.skills}
+                            pinned={experience.pinned}
                         />
                     ))
                 }

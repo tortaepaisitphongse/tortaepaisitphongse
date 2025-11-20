@@ -1,0 +1,287 @@
+---
+import Icon from "./Icon.astro";
+
+export interface Props {
+    title: string;
+    company: string;
+    period: string;
+    description: string;
+    employmentType?: string;
+    location?: string;
+    bgColor?: string;
+    logo?: string; // Image path or icon name
+    logoType?: "image" | "icon"; // Type of logo
+    skills?: string[]; // Array of skills/technologies
+    pinned?: boolean; // Whether this experience is pinned/featured
+}
+
+const {
+    title,
+    company,
+    period,
+    description,
+    employmentType,
+    location,
+    bgColor = "blue",
+    logo,
+    logoType = "image",
+    skills,
+    pinned = false,
+} = Astro.props;
+---
+
+<article class={`experience-card ${bgColor}`}>
+    <div class="experience-header">
+        <div class="experience-title-row">
+            {
+                logo && (
+                    <div class="company-logo">
+                        {logoType === "icon" ? (
+                            <Icon icon={logo as any} size="3em" />
+                        ) : (
+                            <img src={logo} alt={`${company} logo`} />
+                        )}
+                    </div>
+                )
+            }
+            <div class="title-content">
+                <div class="title-row">
+                    <h3 class="experience-title">{title}</h3>
+                    {
+                        employmentType && (
+                            <span class="employment-type">
+                                {employmentType}
+                            </span>
+                        )
+                    }
+                </div>
+                <p class="experience-company">{company}</p>
+                <div class="experience-meta">
+                    <p class="experience-period">{period}</p>
+                    {location && <p class="experience-location">{location}</p>}
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="experience-description">{description}</p>
+    {
+        skills && skills.length > 0 && (
+            <div class="skills-section">
+                <p class="skills-label">Skills and Technologies:</p>
+                <p class="skills-list">{skills.join(", ")}</p>
+            </div>
+        )
+    }
+</article>
+
+<style>
+    .experience-card {
+        border-radius: 1.5rem;
+        padding: 2rem;
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .experience-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .experience-card.orange {
+        background: linear-gradient(135deg, #fff5e6 0%, #ffe4b3 100%);
+    }
+
+    .experience-card.purple {
+        background: linear-gradient(135deg, #2d1b69 0%, #1a0f3d 100%);
+        color: white;
+    }
+
+    .experience-card.blue {
+        background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 100%);
+    }
+
+    .experience-card.pink {
+        background: linear-gradient(135deg, #ffe6f3 0%, #ffb3d9 100%);
+    }
+
+    .experience-card.green {
+        background: linear-gradient(135deg, #e6fff0 0%, #b3ffcc 100%);
+    }
+
+    .experience-card.cmu {
+        background: #c41230;
+        color: white;
+    }
+
+    .experience-card.cmu-dsc {
+        background: #052b56;
+        color: white;
+    }
+
+    .experience-header {
+        margin-bottom: 1.5rem;
+    }
+
+    .experience-title-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .company-logo {
+        flex-shrink: 0;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .company-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 10px;
+    }
+
+    .experience-card.cmu .company-logo,
+    .experience-card.cmu-dsc .company-logo,
+    .experience-card.purple .company-logo {
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    .title-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        flex: 1;
+    }
+
+    .title-row {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .experience-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0;
+        line-height: 1.3;
+    }
+
+    .employment-type {
+        font-size: 0.875rem;
+        font-weight: 500;
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        background: rgba(0, 0, 0, 0.1);
+        white-space: nowrap;
+    }
+
+    .experience-card.purple .employment-type {
+        background: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .experience-card.cmu .employment-type {
+        background: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .experience-card.cmu-dsc .employment-type {
+        background: rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .experience-company {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0;
+        opacity: 0.9;
+    }
+
+    .experience-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 0;
+    }
+
+    .experience-period {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 0;
+    }
+
+    .experience-location {
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 0;
+    }
+
+    .experience-description {
+        font-size: 1rem;
+        line-height: 1.6;
+        opacity: 0.9;
+        flex: 1;
+        margin-bottom: 1rem;
+    }
+
+    .skills-section {
+        margin-top: auto;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .experience-card.cmu .skills-section,
+    .experience-card.purple .skills-section {
+        border-top-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .skills-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .skills-list {
+        font-size: 0.875rem;
+        line-height: 1.6;
+        opacity: 0.8;
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        .experience-card {
+            padding: 1.5rem;
+        }
+
+        .company-logo {
+            width: 64px;
+            height: 64px;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+        }
+
+        .experience-company {
+            font-size: 1rem;
+        }
+    }
+</style>

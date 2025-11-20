@@ -33,6 +33,22 @@ const boardStickers = Object.values(boardStickerModules).map(
 
 <Layout>
     <div class="wrapper">
+        <div class="intro-section">
+            <p class="intro-text">
+                Hey! I'm Tor, a <strong>data scientist</strong> with experience in
+                data science and consulting. I've worked on building <strong
+                    >machine learning models, data pipelines, and business
+                    process improvement projects</strong
+                >. At my core, I'm passionate about <strong
+                    >data-driven technologies</strong
+                > that can help make optimal decisions and create value, specifically
+                the applications of <strong
+                    >deep learning and AI on optimization problems</strong
+                >. Outside of tech, I enjoy watching sports (soccer, basketball,
+                and volleyball), taking photos, cooking, and listening to live
+                music :)
+            </p>
+        </div>
         <div class="pinboard-container">
             <div class="corkboard">
                 <Image
@@ -122,8 +138,31 @@ const boardStickers = Object.values(boardStickerModules).map(
 </Layout>
 
 <style>
+    .intro-section {
+        padding: 2rem 1.5rem 0;
+        max-width: 120ch;
+        margin: 0 auto;
+    }
+
+    .intro-text {
+        font-size: var(--text-lg);
+        line-height: 1.7;
+        color: var(--gray-50);
+    }
+
+    @media (min-width: 50em) {
+        .intro-section {
+            padding: 3rem 1.5rem 0;
+        }
+
+        .intro-text {
+            font-size: var(--text-lg);
+        }
+    }
+
     .pinboard-container {
         padding: 2rem;
+        margin-top: 2rem;
         min-height: 100vh;
         display: flex;
         justify-content: flex-end;

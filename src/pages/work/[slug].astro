@@ -1,10 +1,8 @@
 ---
-// src/pages/work/[slug].astro
 import Layout from "../../layouts/Layout.astro";
 import ContentBlock from "../../components/ContentBlock.astro";
 import projectsData from "../../content/projects/projects.json";
 
-// This function tells Astro which dynamic routes to generate
 export async function getStaticPaths() {
     return projectsData.projects.map((project) => ({
         params: { slug: project.slug },
@@ -13,45 +11,57 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
+const currentIndex = projectsData.projects.findIndex(
+    (p) => p.slug === project.slug
+);
+const nextProject =
+    currentIndex < projectsData.projects.length - 1
+        ? projectsData.projects[currentIndex + 1]
+        : null;
 ---
 
 <Layout>
     <main class="project-detail">
         <div class="container">
-            <!-- Back button -->
-            <a href="/work" class="back-button">← Back to work</a>
+            {
+                project.image && (
+                    <div class="project-hero">
+                        <img src={project.image} alt={project.title} />
+                    </div>
+                )
+            }
 
-            <!-- Project header -->
             <header class="project-header">
                 <h1 class="project-title">{project.title}</h1>
-                <p class="project-subtitle">{project.description}</p>
+                <p class="project-description">{project.description}</p>
 
-                <div class="project-meta">
+                <div class="project-meta-grid">
                     <div class="meta-item">
-                        <strong>Role:</strong>
-                        {project.meta.role}
+                        <div class="meta-label">Role</div>
+                        <div class="meta-value">{project.meta.role}</div>
                     </div>
                     <div class="meta-item">
-                        <strong>Timeline:</strong>
-                        {project.meta.timeline}
+                        <div class="meta-label">Tools/Skills</div>
+                        <div class="meta-value">
+                            {
+                                Array.isArray(project.meta.tools)
+                                    ? project.meta.tools.join(", ")
+                                    : project.meta.tools
+                            }
+                        </div>
                     </div>
                     <div class="meta-item">
-                        <strong>Company:</strong>
-                        {project.meta.company}
+                        <div class="meta-label">Team</div>
+                        <div class="meta-value">{project.meta.team}</div>
                     </div>
-                </div>
-
-                <div class="project-tags">
-                    {project.tags.map((tag) => <span class="tag">{tag}</span>)}
+                    <div class="meta-item">
+                        <div class="meta-label">Duration</div>
+                        <div class="meta-value">{project.meta.duration}</div>
+                    </div>
                 </div>
             </header>
 
-            <!-- Project image -->
-            <div class="project-image-large">
-                <img src={project.image} alt={project.title} />
-            </div>
-
-            <!-- Project content - Dynamic blocks -->
             <div class="project-content">
                 {
                     project.content?.map((block) => (
@@ -62,106 +72,248 @@ const { project } = Astro.props;
                     ))
                 }
             </div>
+
+            {
+                nextProject && (
+                    <section class="next-project-section">
+                        <h2 class="next-project-heading">Next project</h2>
+                        <a
+                            href={`/work/${nextProject.slug}`}
+                            class="next-project-card"
+                        >
+                            <h3 class="next-project-title">
+                                {nextProject.title}
+                            </h3>
+                            <div class="next-project-tags">
+                                {nextProject.tags.map((tag) => (
+                                    <span class="next-project-tag">{tag}</span>
+                                ))}
+                            </div>
+                            <p class="next-project-description">
+                                {nextProject.description}
+                            </p>
+                        </a>
+                    </section>
+                )
+            }
         </div>
     </main>
 </Layout>
 
 <style>
     .project-detail {
-        padding: 2rem 0;
+        padding: 3rem 0 6rem;
         min-height: calc(100vh - 80px);
     }
 
     .container {
-        max-width: 800px;
+        max-width: 1000px;
         margin: 0 auto;
         padding: 0 2rem;
     }
 
     .back-button {
         display: inline-block;
-        color: var(--gray-600);
+        color: var(--gray-500);
         text-decoration: none;
-        margin-bottom: 2rem;
+        margin-bottom: 4rem;
         font-weight: 500;
+        font-size: var(--text-base);
         transition: color 0.2s ease;
     }
 
     .back-button:hover {
-        color: var(--black);
+        color: var(--gray-0);
     }
 
     .project-header {
-        margin-bottom: 3rem;
+        margin-bottom: 4rem;
     }
 
-    .project-title {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        line-height: 1.2;
-    }
-
-    .project-subtitle {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        line-height: 1.5;
-    }
-
-    .project-meta {
-        display: flex;
-        gap: 2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .meta-item {
-        font-size: 0.95rem;
-        color: var(--gray-200);
-    }
-
-    .meta-item strong {
-        color: var(--gray-100);
-    }
-
-    .project-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-
-    .tag {
-        background: var(--gray-100);
-        color: var(--gray-800);
-        padding: 0.4rem 0.8rem;
-        border-radius: 1rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-    }
-
-    .project-image-large {
-        margin-bottom: 3rem;
-        border-radius: 1rem;
+    .project-hero {
+        margin-bottom: 4rem;
+        border-radius: 0;
         overflow: hidden;
     }
 
-    .project-image-large img {
+    .project-hero img {
         width: 100%;
         height: auto;
-        object-fit: cover;
+        display: block;
+    }
+
+    .project-title {
+        font-size: var(--text-3xl);
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        line-height: 1.3;
+        color: var(--gray-0);
+        letter-spacing: -0.02em;
+    }
+
+    .project-description {
+        font-size: var(--text-base);
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+        color: var(--gray-100);
+        max-width: 85ch;
+        font-weight: 400;
+    }
+
+    .project-meta-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        margin-top: 2.5rem;
+        border-top: 1px solid var(--gray-200);
+        border-bottom: 1px solid var(--gray-200);
+    }
+
+    .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.5rem 1.25rem;
+        border-right: 1px solid var(--gray-200);
+    }
+
+    .meta-item:last-child {
+        border-right: none;
+    }
+
+    .meta-label {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--gray-500);
+    }
+
+    .meta-value {
+        font-size: var(--text-base);
+        color: var(--gray-200);
+        line-height: 1.6;
+        font-weight: 400;
     }
 
     .project-content {
         line-height: 1.7;
+        margin-bottom: 6rem;
+    }
+
+    .next-project-section {
+        padding-top: 5rem;
+        border-top: 1px solid var(--gray-200);
+        margin-top: 5rem;
+    }
+
+    .next-project-heading {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--gray-500);
+        margin-bottom: 2rem;
+    }
+
+    .next-project-card {
+        display: block;
+        text-decoration: none;
+        padding: 2rem 0;
+        border-bottom: 1px solid var(--gray-200);
+        transition: all 0.2s ease;
+        background: transparent;
+    }
+
+    .next-project-card:hover {
+        border-bottom-color: var(--gray-300);
+    }
+
+    .next-project-title {
+        font-size: var(--text-2xl);
+        font-weight: 700;
+        color: var(--gray-0);
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .next-project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .next-project-tag {
+        background: var(--gray-100);
+        color: var(--gray-400);
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: var(--text-sm);
+        font-weight: 500;
+    }
+
+    .next-project-description {
+        font-size: var(--text-base);
+        line-height: 1.6;
+        color: var(--gray-300);
+        margin: 0;
     }
 
     @media (max-width: 768px) {
-        .project-title {
-            font-size: 2.5rem;
+        .container {
+            padding: 0 1.5rem;
         }
 
-        .project-meta {
-            flex-direction: column;
-            gap: 0.5rem;
+        .project-detail {
+            padding: 2rem 0 4rem;
+        }
+
+        .project-title {
+            font-size: var(--text-2xl);
+        }
+
+        .project-description {
+            font-size: var(--text-sm);
+        }
+
+        .project-meta-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .meta-item {
+            padding: 1.25rem 1rem;
+            border-right: none;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .meta-item:nth-child(2n) {
+            border-right: 1px solid var(--gray-200);
+        }
+
+        .meta-item:nth-last-child(-n + 2) {
+            border-bottom: none;
+        }
+
+        .project-hero {
+            margin-bottom: 2rem;
+        }
+
+        .project-content {
+            margin-bottom: 4rem;
+        }
+
+        .next-project-section {
+            padding-top: 4rem;
+            margin-top: 4rem;
+        }
+
+        .next-project-card {
+            padding: 2rem;
+        }
+
+        .next-project-title {
+            font-size: var(--text-xl);
         }
     }
 </style>

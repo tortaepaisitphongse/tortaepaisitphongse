@@ -3,11 +3,10 @@ import type { Label } from "recharts";
 import type { iconPaths } from "./IconPaths.ts";
 import Icon from "./Icon.astro";
 
-// Nav Items
 const textLinks: { label: string; href: string }[] = [
-    { label: "Projects", href: "/work/" },
     { label: "About", href: "/about/" },
     { label: "Experience", href: "/experience/" },
+    { label: "Projects", href: "/work/" },
 ];
 
 const iconLinks: {
@@ -27,7 +26,6 @@ const iconLinks: {
     },
 ];
 
-// Test if link points to current page
 const isCurrentPage = (href: string) => {
     let pathname = Astro.url.pathname.replace(import.meta.env.BASE_URL, "");
     if (pathname.at(0) !== "/") pathname = "/" + pathname;
@@ -36,12 +34,13 @@ const isCurrentPage = (href: string) => {
 };
 ---
 
-<nav class="navigation">
+<>
+    <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+    <nav class="navigation">
     <div class="wrapper">
         <div class="nav-container">
             <a href="/" class="site-title">Tor Taepaisitphongse</a>
 
-            <!-- Mobile menu button -->
             <button
                 class="mobile-menu-btn"
                 aria-label="Toggle menu"
@@ -52,7 +51,6 @@ const isCurrentPage = (href: string) => {
                 <span class="hamburger"></span>
             </button>
 
-            <!-- Navigation menu -->
             <ul class="nav-menu" id="nav-menu">
                 {
                     textLinks.map(({ label, href }) => (
@@ -88,50 +86,70 @@ const isCurrentPage = (href: string) => {
         </div>
     </div>
 </nav>
+</>
 
-<script>
-    // Mobile menu toggle functionality
-    const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
-    const navMenu = document.querySelector(".nav-menu");
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+        const navMenu = document.querySelector(".nav-menu");
 
-    if (mobileMenuBtn && navMenu) {
-        mobileMenuBtn.addEventListener("click", () => {
-            const isExpanded =
-                mobileMenuBtn.getAttribute("aria-expanded") === "true";
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener("click", () => {
+                const isExpanded =
+                    mobileMenuBtn.getAttribute("aria-expanded") === "true";
 
-            // Toggle menu
-            mobileMenuBtn.setAttribute("aria-expanded", !isExpanded);
-            navMenu.classList.toggle("active");
-            mobileMenuBtn.classList.toggle("active");
-        });
+                mobileMenuBtn.setAttribute("aria-expanded", !isExpanded);
+                navMenu.classList.toggle("active");
+                mobileMenuBtn.classList.toggle("active");
+            });
 
-        // Close menu when clicking nav links (mobile)
-        navMenu.addEventListener("click", (e) => {
-            if (e.target.classList.contains("nav-link")) {
-                navMenu.classList.remove("active");
-                mobileMenuBtn.classList.remove("active");
-                mobileMenuBtn.setAttribute("aria-expanded", "false");
-            }
-        });
-    }
-
-    // Fixed nav bar
-    let lastScrollTop = 0;
-    const navbar = document.querySelector(".navigation");
-
-    window.addEventListener("scroll", () => {
-        const scrollTop =
-            window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > lastScrollTop) {
-            // Scrolling down - hide navbar
-            navbar.style.transform = "translateY(-100%)";
-        } else {
-            // Scrolling up - show navbar
-            navbar.style.transform = "translateY(0)";
+            navMenu.addEventListener("click", (e) => {
+                if (e.target.classList.contains("nav-link")) {
+                    navMenu.classList.remove("active");
+                    mobileMenuBtn.classList.remove("active");
+                    mobileMenuBtn.setAttribute("aria-expanded", "false");
+                }
+            });
         }
 
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+        let lastScrollTop = 0;
+        const navbar = document.querySelector(".navigation");
+        const progressBar = document.getElementById("scroll-progress-bar");
+
+        function updateScrollProgress() {
+            const scrollTop =
+                window.pageYOffset || document.documentElement.scrollTop;
+
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = windowHeight > 0 ? (scrollTop / windowHeight) * 100 : 0;
+
+            if (progressBar) {
+                const width = Math.min(scrollProgress, 100);
+                progressBar.style.width = `${width}%`;
+                if (scrollTop > 50) {
+                    progressBar.style.opacity = "1";
+                    progressBar.style.visibility = "visible";
+                } else {
+                    progressBar.style.opacity = "0";
+                    progressBar.style.visibility = "hidden";
+                }
+            }
+
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                if (navbar) {
+                    navbar.style.transform = "translateY(-100%)";
+                }
+            } else {
+                if (navbar) {
+                    navbar.style.transform = "translateY(0)";
+                }
+            }
+
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }
+
+        window.addEventListener("scroll", updateScrollProgress);
+        updateScrollProgress();
     });
 </script>
 
@@ -145,6 +163,22 @@ const isCurrentPage = (href: string) => {
         z-index: 1000;
         background-color: white;
         transition: transform 0.3s ease-in-out; /* Add smooth animation */
+    }
+
+    .scroll-progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: #58a6ff;
+        z-index: 99999;
+        width: 0%;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, width 0.1s ease-out, visibility 0.3s ease-in-out;
+        box-shadow: 0 2px 8px rgba(88, 166, 255, 0.6);
+        pointer-events: none;
+        border-radius: 0 0 2px 2px;
     }
 
     .nav-container {

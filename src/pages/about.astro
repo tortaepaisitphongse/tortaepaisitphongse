@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import corkboard from "../assets/images/corkboard.png";
 
-// Load pinboard images
 const boardImageModules = import.meta.glob(
     "../assets/images/pinboard/*.{png,jpg,jpeg}",
     { eager: true }
@@ -21,7 +20,6 @@ const photoDescriptions = [
     "A torii gate stretching toward the ocean in Fukuoka, captured on 35mm film. Recently fell in love with film photography and the magic of shooting analog.",
 ];
 
-// Load pinboard stickers
 const boardStickerModules = import.meta.glob(
     "../assets/images/stickers/*.{png,jpg,jpeg}",
     { eager: true }
@@ -33,81 +31,241 @@ const boardStickers = Object.values(boardStickerModules).map(
 
 <Layout>
     <div class="wrapper">
-        <div class="pinboard-container">
-            <div class="corkboard">
-                <Image
-                    src={corkboard}
-                    alt="Cork pinboard"
-                    class="background-image"
-                />
-                <!-- Photos -->
-                <div class="photo photo1" data-photo="0">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[0]}
-                        alt={photoDescriptions[0]}
-                        class="photo-img"
+        <div class="intro-section">
+            <div class="intro-content">
+                <div class="intro-image intro-image-animate">
+                    <img
+                        src="/images/TorTaepaisitphongse.jpeg"
+                        alt="Tor Taepaisitphongse smiling."
                     />
                 </div>
-                <div class="photo photo2" data-photo="1">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[1]}
-                        alt={photoDescriptions[1]}
-                        class="photo-img"
-                    />
+                <div class="intro-text-wrapper">
+                    <h1 class="intro-heading">Hey! I'm Tor</h1>
+                    <div class="intro-text">
+                        <p class="intro-text-paragraph">
+                            a <strong>data scientist</strong> passionate about
+                            <strong>data-driven technologies</strong> that help create
+                            value, especially <strong
+                                >deep learning and AI for optimization problems</strong
+                            >.
+                        </p>
+                        <p class="intro-text-paragraph">
+                            I'm a junior at <strong>Carnegie Mellon</strong> studying
+                            <strong
+                                >Information Systems and Statistics & Machine
+                                Learning</strong
+                            > where my multidisciplinary background lets me bring
+                            a unique and fun perspective to my work.
+                        </p>
+                        <p class="intro-text-paragraph">
+                            Outside of problem solving, I enjoy watching sports,
+                            taking photos, cooking, and listening to live music
+                            :)
+                        </p>
+                        <p class="intro-text-paragraph">
+                            If you're enjoying what you see, I'd love to <strong
+                                >connect</strong
+                            > and chat!
+                        </p>
+                    </div>
                 </div>
-                <div class="photo photo3" data-photo="2">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[2]}
-                        alt={photoDescriptions[2]}
-                        class="photo-img"
-                    />
+            </div>
+        </div>
+        <div class="neural-network-section">
+            <h2 class="neural-network-header">My Neural Network</h2>
+            <div class="neural-network">
+                <svg
+                    class="neural-connections"
+                    aria-hidden="true"
+                    width="100%"
+                    height="100%"
+                >
+                </svg>
+                <div class="neural-layer" data-layer="input">
+                    <div
+                        class="neural-node"
+                        data-node="1"
+                        style="--layer-x: 10%; --layer-y: 25%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Stats & ML</div>
+                            <div class="node-desc">Academic foundation</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node"
+                        data-node="2"
+                        style="--layer-x: 10%; --layer-y: 50%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Python & SQL</div>
+                            <div class="node-desc">Core technical skills</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node"
+                        data-node="3"
+                        style="--layer-x: 10%; --layer-y: 75%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Business Context</div>
+                            <div class="node-desc">IS & consulting</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="photo photo4" data-photo="3">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[3]}
-                        alt={photoDescriptions[3]}
-                        class="photo-img"
-                    />
+                <div class="neural-layer" data-layer="hidden1">
+                    <div
+                        class="neural-node"
+                        data-node="4"
+                        style="--layer-x: 35%; --layer-y: 20%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">ML Development</div>
+                            <div class="node-desc">Building models</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node"
+                        data-node="5"
+                        style="--layer-x: 35%; --layer-y: 50%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Data Analysis</div>
+                            <div class="node-desc">Extracting insights</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node"
+                        data-node="6"
+                        style="--layer-x: 35%; --layer-y: 80%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Strategic Thinking</div>
+                            <div class="node-desc">Business solutions</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="photo photo5" data-photo="4">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[4]}
-                        alt={photoDescriptions[4]}
-                        class="photo-img"
-                    />
+                <div class="neural-layer" data-layer="hidden2">
+                    <div
+                        class="neural-node"
+                        data-node="7"
+                        style="--layer-x: 60%; --layer-y: 35%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Deep Learning</div>
+                            <div class="node-desc">Neural networks</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node"
+                        data-node="8"
+                        style="--layer-x: 60%; --layer-y: 65%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Optimization</div>
+                            <div class="node-desc">Decision making</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="photo photo6" data-photo="5">
-                    <div class="skeleton"></div>
-                    <Image
-                        src={boardImages[5]}
-                        alt={photoDescriptions[5]}
-                        class="photo-img"
-                    />
+                <div class="neural-layer" data-layer="output">
+                    <div
+                        class="neural-node output-node"
+                        data-node="9"
+                        style="--layer-x: 85%; --layer-y: 35%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Data Scientist</div>
+                            <div class="node-desc">ML & analytics</div>
+                        </div>
+                    </div>
+                    <div
+                        class="neural-node output-node"
+                        data-node="10"
+                        style="--layer-x: 85%; --layer-y: 65%;"
+                    >
+                        <div class="node-content">
+                            <div class="node-title">Consultant</div>
+                            <div class="node-desc">Business strategy</div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="pinboard-section">
+            <h2 class="pinboard-header">My Pinboard</h2>
+            <div class="pinboard-container">
+                <div class="corkboard">
+                    <Image
+                        src={corkboard}
+                        alt="Cork pinboard"
+                        class="background-image"
+                    />
+                    <div class="photo photo1" data-photo="0">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[0]}
+                            alt={photoDescriptions[0]}
+                            class="photo-img"
+                        />
+                    </div>
+                    <div class="photo photo2" data-photo="1">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[1]}
+                            alt={photoDescriptions[1]}
+                            class="photo-img"
+                        />
+                    </div>
+                    <div class="photo photo3" data-photo="2">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[2]}
+                            alt={photoDescriptions[2]}
+                            class="photo-img"
+                        />
+                    </div>
+                    <div class="photo photo4" data-photo="3">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[3]}
+                            alt={photoDescriptions[3]}
+                            class="photo-img"
+                        />
+                    </div>
+                    <div class="photo photo5" data-photo="4">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[4]}
+                            alt={photoDescriptions[4]}
+                            class="photo-img"
+                        />
+                    </div>
+                    <div class="photo photo6" data-photo="5">
+                        <div class="skeleton"></div>
+                        <Image
+                            src={boardImages[5]}
+                            alt={photoDescriptions[5]}
+                            class="photo-img"
+                        />
+                    </div>
 
-                <!-- Stickers -->
-                <div class="sticker sticker2">
-                    <Image src={boardStickers[1]} alt="Sticker2" />
-                </div>
-                <div class="sticker sticker3">
-                    <Image src={boardStickers[2]} alt="Sticker3" />
-                </div>
-                <div class="sticker sticker4">
-                    <Image src={boardStickers[3]} alt="Sticker4" />
-                </div>
-                <div class="sticker sticker5">
-                    <Image src={boardStickers[4]} alt="Sticker5" />
+                    <div class="sticker sticker2">
+                        <Image src={boardStickers[1]} alt="Sticker2" />
+                    </div>
+                    <div class="sticker sticker3">
+                        <Image src={boardStickers[2]} alt="Sticker3" />
+                    </div>
+                    <div class="sticker sticker4">
+                        <Image src={boardStickers[3]} alt="Sticker4" />
+                    </div>
+                    <div class="sticker sticker5">
+                        <Image src={boardStickers[4]} alt="Sticker5" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
             <button class="close-btn" id="closeModal">&times;</button>
@@ -122,8 +280,334 @@ const boardStickers = Object.values(boardStickerModules).map(
 </Layout>
 
 <style>
+    .intro-section {
+        padding: 4rem 2rem;
+        margin: 0 auto;
+    }
+
+    .intro-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .intro-image {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .intro-image:hover {
+        animation: jiggle 0.5s ease-in-out;
+    }
+
+    @keyframes jiggle {
+        0%,
+        100% {
+            transform: scale(1) rotateY(0deg) rotate(0deg);
+        }
+        25% {
+            transform: scale(1.05) rotateY(0deg) rotate(-3deg);
+        }
+        50% {
+            transform: scale(1.05) rotateY(0deg) rotate(3deg);
+        }
+        75% {
+            transform: scale(1.05) rotateY(0deg) rotate(-2deg);
+        }
+    }
+
+    .intro-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 1.5rem;
+        object-fit: cover;
+        aspect-ratio: 3 / 4;
+        display: block;
+    }
+
+    .intro-text-wrapper {
+        width: 100%;
+    }
+
+    .intro-heading {
+        font-size: var(--text-3xl);
+        font-weight: 600;
+        color: var(--gray-0);
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+    }
+
+    .intro-text {
+        font-size: var(--text-lg);
+        line-height: 1.7;
+        color: var(--gray-50);
+    }
+
+    .intro-text p {
+        margin-bottom: 1.25rem;
+    }
+
+    .intro-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .intro-text-paragraph {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+            opacity 0.6s ease-out,
+            transform 0.6s ease-out;
+    }
+
+    .intro-text-paragraph.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .neural-network-section {
+        margin: 6rem auto 0;
+        padding: 0 1.5rem;
+        max-width: 1200px;
+    }
+
+    .neural-network-header {
+        font-size: var(--text-2xl);
+        font-weight: 600;
+        color: var(--gray-0);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .neural-network {
+        position: relative;
+        width: 100%;
+        min-height: 600px;
+        margin: 0 auto;
+        border: 1px solid var(--gray-200);
+        border-radius: 0.5rem;
+        padding: 2rem;
+        background: transparent;
+    }
+
+    .neural-connections {
+        position: absolute;
+        top: 2rem;
+        left: 2rem;
+        width: calc(100% - 4rem);
+        height: calc(100% - 4rem);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .neural-connections line {
+        stroke: #505d84;
+        stroke-width: 1.5;
+        opacity: 0;
+        transition:
+            opacity 0.6s ease-out,
+            stroke-width 0.3s ease,
+            stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .neural-connections line.animate-in {
+        opacity: 0.3 !important;
+        stroke-dashoffset: 0 !important;
+        animation: pulse 2s ease-in-out 0.8s infinite;
+    }
+
+    .neural-connections line:hover {
+        opacity: 0.6;
+        stroke-width: 2;
+        animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes drawLine {
+        0% {
+            stroke-dashoffset: 1000;
+        }
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 0.3;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .neural-layer {
+        position: absolute;
+        width: calc(100% - 4rem);
+        height: calc(100% - 4rem);
+        top: 2rem;
+        left: 2rem;
+    }
+
+    .neural-node {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        left: var(--layer-x);
+        top: var(--layer-y);
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+        z-index: 2;
+        cursor: pointer;
+        transition:
+            transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+            opacity 0.5s ease-out;
+    }
+
+    .neural-node.animate-in {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    .output-node .node-content {
+        border-width: 3px;
+        border-color: var(--link-color);
+    }
+
+    .node-content {
+        width: 100%;
+        height: 100%;
+        background: var(--white);
+        border: 2px solid var(--gray-300);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .neural-node:hover .node-content {
+        transform: scale(1.1);
+        border-color: var(--link-color);
+        box-shadow: 0 8px 24px rgba(88, 166, 255, 0.3);
+        background: var(--gray-900);
+    }
+
+    .node-title {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--gray-0);
+        margin-bottom: 0.25rem;
+        font-family: var(--font-brand);
+    }
+
+    .node-desc {
+        font-size: var(--text-xs);
+        color: var(--gray-400);
+        line-height: 1.3;
+    }
+
+    .neural-node:hover .node-title {
+        color: var(--link-color);
+    }
+
+    .pinboard-section {
+        margin-top: 4rem;
+    }
+
+    .pinboard-header {
+        font-size: var(--text-2xl);
+        font-weight: 600;
+        color: var(--gray-0);
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 0 1.5rem;
+    }
+
+    @media (min-width: 50em) {
+        .intro-section {
+            padding: 5rem 3rem;
+        }
+
+        .intro-content {
+            flex-direction: row;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .intro-image {
+            flex-shrink: 0;
+            max-width: 400px;
+        }
+
+        .intro-text-wrapper {
+            flex: 1;
+        }
+
+        .intro-heading {
+            font-size: var(--text-4xl);
+        }
+
+        .intro-text {
+            font-size: var(--text-lg);
+        }
+
+        .neural-network-header {
+            font-size: var(--text-3xl);
+        }
+
+        .neural-network {
+            min-height: 700px;
+        }
+
+        .pinboard-header {
+            font-size: var(--text-3xl);
+            text-align: left;
+            padding: 0 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .neural-network {
+            min-height: 500px;
+            padding: 1.5rem;
+        }
+
+        .neural-layer {
+            width: calc(100% - 3rem);
+            height: calc(100% - 3rem);
+            top: 1.5rem;
+            left: 1.5rem;
+        }
+
+        .neural-connections {
+            top: 1.5rem;
+            left: 1.5rem;
+            width: calc(100% - 3rem);
+            height: calc(100% - 3rem);
+        }
+
+        .neural-node {
+            width: 100px;
+            height: 100px;
+        }
+
+        .node-title {
+            font-size: 0.75rem;
+        }
+
+        .node-desc {
+            font-size: 0.65rem;
+        }
+    }
+
     .pinboard-container {
         padding: 2rem;
+        margin-top: 2rem;
         min-height: 100vh;
         display: flex;
         justify-content: flex-end;
@@ -632,23 +1116,35 @@ const boardStickers = Object.values(boardStickerModules).map(
 
 <script define:vars={{ boardImages, photoDescriptions }}>
     document.addEventListener("DOMContentLoaded", function () {
+        const introParagraphs = document.querySelectorAll(
+            ".intro-text-paragraph"
+        );
+
+        if (introParagraphs.length > 0) {
+            introParagraphs.forEach((paragraph, index) => {
+                setTimeout(
+                    () => {
+                        paragraph.classList.add("animate");
+                    },
+                    400 + index * 150
+                );
+            });
+        }
+
         const photos = document.querySelectorAll(".photo");
         const modal = document.getElementById("modal");
         const modalImage = document.getElementById("modalImage");
         const modalDescription = document.getElementById("modalDescription");
         const closeBtn = document.getElementById("closeModal");
 
-        // Handle skeleton loading for photos
         const photoImages = document.querySelectorAll(".photo-img");
         photoImages.forEach((img) => {
             const container = img.closest(".photo");
 
             if (img.complete && img.naturalHeight !== 0) {
-                // Image already loaded
                 img.classList.add("loaded");
                 container.classList.add("image-loaded");
             } else {
-                // Image still loading
                 img.addEventListener("load", () => {
                     img.classList.add("loaded");
                     container.classList.add("image-loaded");
@@ -661,7 +1157,6 @@ const boardStickers = Object.values(boardStickerModules).map(
             }
         });
 
-        // Modal functionality
         photos.forEach((photo) => {
             photo.addEventListener("click", function () {
                 const photoIndex = parseInt(this.dataset.photo);
@@ -692,5 +1187,272 @@ const boardStickers = Object.values(boardStickerModules).map(
                 closeModal();
             }
         });
+
+        const neuralNetwork = document.querySelector(".neural-network");
+        const svg = document.querySelector(".neural-connections");
+        const nodes = document.querySelectorAll(".neural-node");
+
+        if (neuralNetwork && svg && nodes.length > 0) {
+            const connections = [
+                [1, 4],
+                [1, 5],
+                [1, 6],
+                [2, 4],
+                [2, 5],
+                [2, 6],
+                [3, 4],
+                [3, 5],
+                [3, 6],
+                [4, 7],
+                [4, 8],
+                [5, 7],
+                [5, 8],
+                [6, 7],
+                [6, 8],
+                [7, 9],
+                [7, 10],
+                [8, 9],
+                [8, 10],
+            ];
+
+            function drawConnections() {
+                svg.innerHTML = "";
+
+                const networkRect = neuralNetwork.getBoundingClientRect();
+                const networkWidth = networkRect.width;
+                const networkHeight = networkRect.height;
+
+                svg.setAttribute("width", networkWidth);
+                svg.setAttribute("height", networkHeight);
+                svg.setAttribute(
+                    "viewBox",
+                    `0 0 ${networkWidth} ${networkHeight}`
+                );
+
+                connections.forEach(([from, to]) => {
+                    const fromNode = document.querySelector(
+                        `[data-node="${from}"]`
+                    );
+                    const toNode = document.querySelector(
+                        `[data-node="${to}"]`
+                    );
+
+                    if (fromNode && toNode) {
+                        const fromRect = fromNode.getBoundingClientRect();
+                        const toRect = toNode.getBoundingClientRect();
+                        const networkRect =
+                            neuralNetwork.getBoundingClientRect();
+
+                        const x1 =
+                            fromRect.left +
+                            fromRect.width / 2 -
+                            networkRect.left;
+                        const y1 =
+                            fromRect.top +
+                            fromRect.height / 2 -
+                            networkRect.top;
+                        const x2 =
+                            toRect.left + toRect.width / 2 - networkRect.left;
+                        const y2 =
+                            toRect.top + toRect.height / 2 - networkRect.top;
+
+                        const line = document.createElementNS(
+                            "http://www.w3.org/2000/svg",
+                            "line"
+                        );
+                        const lineLength = Math.sqrt(
+                            Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+                        );
+                        line.setAttribute("x1", x1);
+                        line.setAttribute("y1", y1);
+                        line.setAttribute("x2", x2);
+                        line.setAttribute("y2", y2);
+                        line.setAttribute("stroke", "#505d84");
+                        line.setAttribute("stroke-width", "1.5");
+                        line.setAttribute("opacity", "0");
+                        if (lineLength > 0) {
+                            line.setAttribute("stroke-dasharray", lineLength);
+                            line.setAttribute("stroke-dashoffset", lineLength);
+                        } else {
+                            line.setAttribute("stroke-dasharray", "1000");
+                            line.setAttribute("stroke-dashoffset", "1000");
+                        }
+                        svg.appendChild(line);
+                    }
+                });
+            }
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    drawConnections();
+                }, 100);
+            });
+            window.addEventListener("resize", () => {
+                requestAnimationFrame(() => {
+                    setTimeout(drawConnections, 100);
+                });
+            });
+
+            function animateLine(line, delay = 0) {
+                setTimeout(() => {
+                    let dashArray = line.getAttribute("stroke-dasharray");
+
+                    if (
+                        !dashArray ||
+                        dashArray === "null" ||
+                        dashArray === ""
+                    ) {
+                        const x1 = parseFloat(line.getAttribute("x1"));
+                        const y1 = parseFloat(line.getAttribute("y1"));
+                        const x2 = parseFloat(line.getAttribute("x2"));
+                        const y2 = parseFloat(line.getAttribute("y2"));
+                        const lineLength = Math.sqrt(
+                            Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+                        );
+                        if (lineLength > 0) {
+                            dashArray = lineLength.toString();
+                            line.setAttribute("stroke-dasharray", dashArray);
+                        } else {
+                            dashArray = "1000";
+                            line.setAttribute("stroke-dasharray", dashArray);
+                        }
+                    }
+
+                    line.setAttribute("stroke-dashoffset", dashArray);
+
+                    setTimeout(() => {
+                        line.classList.add("animate-in");
+                        line.style.opacity = "0.3";
+                        line.setAttribute("stroke-dashoffset", "0");
+                    }, 10);
+                }, delay);
+            }
+
+            let hasAnimated = false;
+            function animateNeuralNetwork() {
+                if (hasAnimated) return;
+                hasAnimated = true;
+
+                const layers = ["input", "hidden1", "hidden2", "output"];
+                let nodeDelay = 0;
+
+                layers.forEach((layerName, layerIndex) => {
+                    const layerNodes = document.querySelectorAll(
+                        `[data-layer="${layerName}"] .neural-node`
+                    );
+
+                    layerNodes.forEach((node, nodeIndex) => {
+                        setTimeout(() => {
+                            node.classList.add("animate-in");
+                        }, nodeDelay);
+                        nodeDelay += 100;
+                    });
+
+                    nodeDelay += 200;
+                });
+
+                setTimeout(() => {
+                    const lines = svg.querySelectorAll("line");
+
+                    if (lines.length === 0) {
+                        return;
+                    }
+
+                    lines.forEach((line, index) => {
+                        let dashArray = line.getAttribute("stroke-dasharray");
+
+                        if (
+                            !dashArray ||
+                            dashArray === "null" ||
+                            dashArray === ""
+                        ) {
+                            const x1 = parseFloat(line.getAttribute("x1"));
+                            const y1 = parseFloat(line.getAttribute("y1"));
+                            const x2 = parseFloat(line.getAttribute("x2"));
+                            const y2 = parseFloat(line.getAttribute("y2"));
+                            const lineLength = Math.sqrt(
+                                Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+                            );
+                            if (lineLength > 0) {
+                                dashArray = lineLength.toString();
+                                line.setAttribute(
+                                    "stroke-dasharray",
+                                    dashArray
+                                );
+                            } else {
+                                dashArray = "1000"; // Fallback
+                                line.setAttribute(
+                                    "stroke-dasharray",
+                                    dashArray
+                                );
+                            }
+                        }
+
+                        // Set dash offset to dash array length for animation
+                        line.setAttribute("stroke-dashoffset", dashArray);
+
+                        setTimeout(() => {
+                            line.classList.add("animate-in");
+                            line.style.opacity = "0.3";
+                            line.setAttribute("stroke-dashoffset", "0");
+                        }, index * 30); // Stagger connection animations
+                    });
+                }, nodeDelay);
+            }
+
+            // Use Intersection Observer to trigger animation when section is visible
+            const neuralNetworkSection = document.querySelector(
+                ".neural-network-section"
+            );
+            if (neuralNetworkSection) {
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting && !hasAnimated) {
+                                // Small delay to ensure connections are drawn
+                                setTimeout(() => {
+                                    animateNeuralNetwork();
+                                }, 200);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    {
+                        threshold: 0.3,
+                    }
+                );
+                observer.observe(neuralNetworkSection);
+            }
+
+            nodes.forEach((node) => {
+                node.addEventListener("mouseenter", function () {
+                    const nodeNum = parseInt(this.dataset.node);
+                    const relatedConnections = connections.filter(
+                        ([from, to]) => from === nodeNum || to === nodeNum
+                    );
+
+                    svg.querySelectorAll("line").forEach((line, index) => {
+                        const conn = connections[index];
+                        if (
+                            relatedConnections.some(
+                                ([f, t]) =>
+                                    (f === conn[0] && t === conn[1]) ||
+                                    (f === conn[1] && t === conn[0])
+                            )
+                        ) {
+                            line.style.opacity = "0.6";
+                            line.style.strokeWidth = "2";
+                        }
+                    });
+                });
+
+                node.addEventListener("mouseleave", function () {
+                    svg.querySelectorAll("line").forEach((line) => {
+                        line.style.opacity = "0.3";
+                        line.style.strokeWidth = "1.5";
+                    });
+                });
+            });
+        }
     });
 </script>

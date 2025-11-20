@@ -35,10 +35,13 @@ const { slug, title, description, tags, image, bgColor } = Astro.props;
     }
 
     .project-card {
-        border-radius: 1.5rem;
+        border-radius: 0.5rem;
         padding: 2rem;
+        border: 1px solid var(--gray-200);
+        background: transparent;
         transition:
             transform 0.3s ease,
+            border-color 0.3s ease,
             box-shadow 0.3s ease;
         height: 100%;
         display: flex;
@@ -49,36 +52,17 @@ const { slug, title, description, tags, image, bgColor } = Astro.props;
 
     .project-card:hover {
         transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-card.orange {
-        background: linear-gradient(135deg, #fff5e6 0%, #ffe4b3 100%);
-    }
-
-    .project-card.purple {
-        background: linear-gradient(135deg, #2d1b69 0%, #1a0f3d 100%);
-        color: white;
-    }
-
-    .project-card.blue {
-        background: linear-gradient(135deg, #e6f3ff 0%, #b3d9ff 100%);
-    }
-
-    .project-card.pink {
-        background: linear-gradient(135deg, #ffe6f3 0%, #ffb3d9 100%);
-    }
-
-    .project-card.green {
-        background: linear-gradient(135deg, #e6fff0 0%, #b3ffcc 100%);
+        border-color: var(--gray-300);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     }
 
     .project-image {
         margin-bottom: 1.5rem;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         overflow: hidden;
         height: 200px; /* Standardized image height */
         flex-shrink: 0;
+        background: var(--gray-900);
     }
 
     .project-image img {
@@ -100,16 +84,17 @@ const { slug, title, description, tags, image, bgColor } = Astro.props;
 
     .project-title {
         font-size: 1.5rem;
-        font-weight: 700;
+        font-weight: 600;
         margin-bottom: 1rem;
         line-height: 1.3;
+        color: var(--gray-0);
     }
 
     .project-description {
         font-size: 1rem;
         line-height: 1.6;
         margin-bottom: 1.5rem;
-        opacity: 0.9;
+        color: var(--gray-100);
         flex: 1;
     }
 
@@ -121,18 +106,14 @@ const { slug, title, description, tags, image, bgColor } = Astro.props;
     }
 
     .tag {
-        background: rgba(255, 255, 255, 0.7);
-        color: var(--gray-700);
+        background: var(--gray-800);
+        color: var(--gray-200);
         padding: 0.25rem 0.75rem;
-        border-radius: 1rem;
+        border-radius: 0.25rem;
         font-size: 0.875rem;
         font-weight: 500;
         white-space: nowrap;
-    }
-
-    .project-card.purple .tag {
-        background: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--gray-700);
     }
 
     @media (max-width: 768px) {

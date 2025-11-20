@@ -37,59 +37,59 @@ const isCurrentPage = (href: string) => {
 <>
     <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
     <nav class="navigation">
-    <div class="wrapper">
-        <div class="nav-container">
-            <a href="/" class="site-title">Tor Taepaisitphongse</a>
+        <div class="wrapper">
+            <div class="nav-container">
+                <a href="/" class="site-title">Tor Taepaisitphongse</a>
 
-            <button
-                class="mobile-menu-btn"
-                aria-label="Toggle menu"
-                aria-expanded="false"
-            >
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-                <span class="hamburger"></span>
-            </button>
+                <button
+                    class="mobile-menu-btn"
+                    aria-label="Toggle menu"
+                    aria-expanded="false"
+                >
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
 
-            <ul class="nav-menu" id="nav-menu">
-                {
-                    textLinks.map(({ label, href }) => (
-                        <li class="nav-item">
-                            <a
-                                href={href}
-                                class={`nav-link ${isCurrentPage(href) ? "active" : ""}`}
-                            >
-                                {label}
-                            </a>
-                        </li>
-                    ))
-                }
-                <li class="nav-item social-container">
-                    <div class="social-links">
-                        {
-                            iconLinks.map(({ label, href, icon }) => (
+                <ul class="nav-menu" id="nav-menu">
+                    {
+                        textLinks.map(({ label, href }) => (
+                            <li class="nav-item">
                                 <a
                                     href={href}
-                                    class="nav-link social-link"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={label}
-                                    title={label}
+                                    class={`nav-link ${isCurrentPage(href) ? "active" : ""}`}
                                 >
-                                    <Icon icon={icon} />
+                                    {label}
                                 </a>
-                            ))
-                        }
-                    </div>
-                </li>
-            </ul>
+                            </li>
+                        ))
+                    }
+                    <li class="nav-item social-container">
+                        <div class="social-links">
+                            {
+                                iconLinks.map(({ label, href, icon }) => (
+                                    <a
+                                        href={href}
+                                        class="nav-link social-link"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={label}
+                                        title={label}
+                                    >
+                                        <Icon icon={icon} />
+                                    </a>
+                                ))
+                            }
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 </>
 
 <script is:inline>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
         const navMenu = document.querySelector(".nav-menu");
 
@@ -120,8 +120,11 @@ const isCurrentPage = (href: string) => {
             const scrollTop =
                 window.pageYOffset || document.documentElement.scrollTop;
 
-            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollProgress = windowHeight > 0 ? (scrollTop / windowHeight) * 100 : 0;
+            const windowHeight =
+                document.documentElement.scrollHeight -
+                document.documentElement.clientHeight;
+            const scrollProgress =
+                windowHeight > 0 ? (scrollTop / windowHeight) * 100 : 0;
 
             if (progressBar) {
                 const width = Math.min(scrollProgress, 100);
@@ -175,7 +178,10 @@ const isCurrentPage = (href: string) => {
         width: 0%;
         opacity: 0;
         visibility: hidden;
-        transition: opacity 0.3s ease-in-out, width 0.1s ease-out, visibility 0.3s ease-in-out;
+        transition:
+            opacity 0.3s ease-in-out,
+            width 0.1s ease-out,
+            visibility 0.3s ease-in-out;
         box-shadow: 0 2px 8px rgba(88, 166, 255, 0.6);
         pointer-events: none;
         border-radius: 0 0 2px 2px;

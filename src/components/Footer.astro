@@ -7,7 +7,10 @@ import Icon from "../components/Icon.astro";
         <div class="footer-content">
             <div class="footer-left">
                 <p class="footer-text">
-                    Say hey! :) tortaepaisitphongse@gmail.com
+                    Say hey! :) <a
+                        href="mailto:tortaepaisitphongse@gmail.com"
+                        class="footer-email">tortaepaisitphongse@gmail.com</a
+                    >
                 </p>
                 <p class="footer-opportunities">
                     Open to opportunities in data science, machine learning,
@@ -58,6 +61,17 @@ import Icon from "../components/Icon.astro";
         font-size: 1.2rem;
         color: var(--black);
         margin: 0;
+    }
+
+    .footer-email {
+        color: var(--black);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    .footer-email:hover {
+        color: var(--link-color);
+        text-decoration: underline;
     }
 
     .footer-opportunities {

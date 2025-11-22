@@ -74,6 +74,21 @@ const nextProject =
             </div>
 
             {
+                project.slug === "portfolio-website" && (
+                    <section class="repository-section">
+                        <a
+                            href="https://github.com/tortaepaisitphongse/tortaepaisitphongse.git"
+                            class="repository-link"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Check out my repository
+                        </a>
+                    </section>
+                )
+            }
+
+            {
                 nextProject && (
                     <section class="next-project-section">
                         <h2 class="next-project-heading">Next project</h2>
@@ -258,6 +273,30 @@ const nextProject =
         line-height: 1.6;
         color: var(--gray-300);
         margin: 0;
+    }
+
+    .repository-section {
+        padding-top: 5rem;
+        border-top: 1px solid var(--gray-200);
+        margin-top: 5rem;
+        text-align: center;
+    }
+
+    .repository-link {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        background-color: var(--black);
+        color: var(--white);
+        text-decoration: none;
+        font-size: var(--text-base);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border-radius: 0.25rem;
+    }
+
+    .repository-link:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
     }
 
     @media (max-width: 768px) {

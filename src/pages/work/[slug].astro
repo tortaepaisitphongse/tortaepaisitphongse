@@ -279,16 +279,21 @@ const nextProject =
 
         .project-meta-grid {
             grid-template-columns: repeat(2, 1fr);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid var(--gray-200);
         }
 
         .meta-item {
             padding: 1.25rem 1rem;
-            border-right: none;
+            border-right: 1px solid var(--gray-200);
             border-bottom: 1px solid var(--gray-200);
+            text-align: center;
         }
 
         .meta-item:nth-child(2n) {
-            border-right: 1px solid var(--gray-200);
+            border-right: none;
         }
 
         .meta-item:nth-last-child(-n + 2) {

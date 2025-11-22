@@ -9,6 +9,10 @@ import Icon from "../components/Icon.astro";
                 <p class="footer-text">
                     Say hey! :) tortaepaisitphongse@gmail.com
                 </p>
+                <p class="footer-opportunities">
+                    Open to opportunities in data science, machine learning,
+                    analytics, and consulting
+                </p>
             </div>
             <div class="footer-right">
                 <a
@@ -40,7 +44,7 @@ import Icon from "../components/Icon.astro";
     .footer-content {
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         gap: 2rem;
         width: 100%;
         min-height: 50px;
@@ -54,6 +58,13 @@ import Icon from "../components/Icon.astro";
         font-size: 1.2rem;
         color: var(--black);
         margin: 0;
+    }
+
+    .footer-opportunities {
+        font-size: var(--text-sm);
+        color: var(--gray-500);
+        margin: 0.75rem 0 0 0;
+        font-style: italic;
     }
 
     .footer-right {

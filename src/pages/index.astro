@@ -279,11 +279,9 @@ const featuredProjects = allProjects.filter((project) => project.featured);
         });
         }
 
-        // Initialize on load
         initNeuralNet();
 
-        // Re-check on resize - if section becomes hidden, it will stay hidden
-        // If it becomes visible, re-initialize
+        // Re-initialize on resize if section becomes visible
         let resizeTimeout;
         window.addEventListener("resize", function () {
             clearTimeout(resizeTimeout);

@@ -77,7 +77,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                 <button class="role-button" data-role="data-analyst">Data Analyst</button>
                 <button class="role-button" data-role="ml-engineer">Machine Learning Engineer</button>
                 <button class="role-button" data-role="consultant">Consultant</button>
-                        </div>
+            </div>
             <div class="skills-container">
                 <span class="skill-badge" data-roles="data-analyst,ml-engineer">Python</span>
                 <span class="skill-badge" data-roles="data-analyst,ml-engineer">C</span>
@@ -356,11 +356,6 @@ const boardStickers = Object.values(boardStickerModules).map(
         animation: jiggle 0.5s ease-in-out;
     }
 
-    .role-button.active {
-        background-color: var(--gray-200);
-        color: var(--gray-0);
-    }
-
     .role-button[data-role="data-analyst"].active {
         background-color: #4a7fb8;
     }
@@ -383,8 +378,6 @@ const boardStickers = Object.values(boardStickerModules).map(
         padding: 1rem;
     }
 
-
-
     .skill-badge {
         display: inline-block;
         padding: 0.5rem 1rem;
@@ -397,48 +390,25 @@ const boardStickers = Object.values(boardStickerModules).map(
         transition: background-color 0.3s ease;
     }
 
-    /* Role colors */
-    .skill-badge[data-roles*="data-analyst"] {
-        --role-color-data-analyst: #4a7fb8;
-    }
-
-    .skill-badge[data-roles*="ml-engineer"] {
-        --role-color-ml-engineer: #35a05a;
-    }
-
-    .skill-badge[data-roles*="consultant"] {
-        --role-color-consultant: #d8453a;
-    }
-
-
-
-    .skill-badge.role-active[data-roles*="data-analyst"] {
-        --active-role-color: #4a7fb8;
+    .skill-badge.role-active[data-active-role="data-analyst"] {
         background-color: #4a7fb8;
         box-shadow: 
             0 0 15px rgba(74, 127, 184, 0.3),
             0 0 30px rgba(74, 127, 184, 0.15);
     }
 
-    .skill-badge.role-active[data-roles*="ml-engineer"] {
-        --active-role-color: #35a05a;
+    .skill-badge.role-active[data-active-role="ml-engineer"] {
         background-color: #35a05a;
         box-shadow: 
             0 0 15px rgba(53, 160, 90, 0.3),
             0 0 30px rgba(53, 160, 90, 0.15);
     }
 
-    .skill-badge.role-active[data-roles*="consultant"] {
-        --active-role-color: #d8453a;
+    .skill-badge.role-active[data-active-role="consultant"] {
         background-color: #d8453a;
         box-shadow: 
             0 0 15px rgba(216, 69, 58, 0.3),
             0 0 30px rgba(216, 69, 58, 0.15);
-    }
-
-    .skill-badge > * {
-        position: relative;
-        z-index: 1;
     }
 
     .pinboard-section {
@@ -689,14 +659,6 @@ const boardStickers = Object.values(boardStickerModules).map(
         object-fit: contain;
     }
 
-    .sticker1 {
-        top: 20px;
-        right: 40px;
-        transform: rotate(-12deg);
-        height: 120px;
-        width: 120px;
-    }
-
     .sticker2 {
         bottom: 350px;
         left: 80px;
@@ -843,11 +805,6 @@ const boardStickers = Object.values(boardStickerModules).map(
             right: 80px;
         }
 
-        .sticker1 {
-            top: 60px;
-            right: 10px;
-        }
-
         .sticker2 {
             bottom: 350px;
             left: 30px;
@@ -908,11 +865,6 @@ const boardStickers = Object.values(boardStickerModules).map(
         .photo6 {
             bottom: 20px;
             right: 130px;
-        }
-
-        .sticker1 {
-            top: 60px;
-            right: 30px;
         }
 
         .sticker2 {
@@ -984,7 +936,6 @@ const boardStickers = Object.values(boardStickerModules).map(
             right: 0px;
         }
 
-        .sticker1,
         .sticker2,
         .sticker3,
         .sticker4,
@@ -1111,27 +1062,23 @@ const boardStickers = Object.values(boardStickerModules).map(
         // Role-based skill highlighting
         const roleButtons = document.querySelectorAll(".role-button");
         const skillBadges = Array.from(document.querySelectorAll(".skill-badge"));
-        let activeRole = null;
-        let clickedRole = null; // Track clicked role for mobile persistence
+        let clickedRole = null;
         
         function updateRoleSkills(role) {
             skillBadges.forEach(badge => {
                 badge.classList.remove("role-active");
+                badge.removeAttribute("data-active-role");
             });
             roleButtons.forEach(button => {
                 button.classList.remove("active");
             });
             
             if (!role) {
-                // Preserve clicked role on mobile when hover ends
                 if (!clickedRole) {
-                    activeRole = null;
                     return;
                 }
                 role = clickedRole;
             }
-            
-            activeRole = role;
             
             const button = document.querySelector(`.role-button[data-role="${role}"]`);
             if (button) {
@@ -1142,6 +1089,7 @@ const boardStickers = Object.values(boardStickerModules).map(
                 const roles = badge.getAttribute("data-roles");
                 if (roles && roles.includes(role)) {
                     badge.classList.add("role-active");
+                    badge.setAttribute("data-active-role", role);
                 }
             });
         }
@@ -1167,7 +1115,6 @@ const boardStickers = Object.values(boardStickerModules).map(
             });
             
             button.addEventListener("mouseleave", function () {
-                // Restore clicked role on mobile, or clear on desktop
                 if (!clickedRole) {
                     updateRoleSkills(null);
                 } else {
@@ -1186,14 +1133,11 @@ const boardStickers = Object.values(boardStickerModules).map(
                     button.classList.remove("jiggle");
                 }, 500);
                 
-                // Random interval between 8-15 seconds
                 const nextJiggle = 8000 + Math.random() * 7000;
                 setTimeout(triggerJiggle, nextJiggle);
             }
             
             setTimeout(triggerJiggle, initialDelay);
         });
-        
-
     });
 </script>

@@ -5,14 +5,13 @@ export interface Props {
     description: string;
     tags: string[];
     image: string;
-    bgColor: string;
 }
 
-const { slug, title, description, tags, image, bgColor } = Astro.props;
+const { slug, title, description, tags, image } = Astro.props;
 ---
 
 <a href={`/work/${slug}`} class="project-link">
-    <article class={`project-card ${bgColor}`}>
+    <article class="project-card">
         <div class="project-image">
             <img src={image} alt={title} />
         </div>

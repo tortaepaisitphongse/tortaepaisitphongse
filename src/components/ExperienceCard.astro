@@ -8,7 +8,6 @@ export interface Props {
     description: string;
     employmentType?: string;
     location?: string;
-    bgColor?: string;
     logo?: string;
     logoType?: "image" | "icon";
     skills?: string[];
@@ -22,7 +21,6 @@ const {
     description,
     employmentType,
     location,
-    bgColor = "blue",
     logo,
     logoType = "image",
     skills,
@@ -30,7 +28,7 @@ const {
 } = Astro.props;
 ---
 
-<article class={`experience-card ${bgColor} ${pinned ? "pinned" : ""}`}>
+<article class={`experience-card ${pinned ? "pinned" : ""}`}>
     <div class="experience-header">
         <div class="experience-title-row">
             {
